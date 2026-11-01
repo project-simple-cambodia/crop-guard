@@ -57,11 +57,12 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 .cg-demo-bg.is-on{opacity:.55}
 .cg-demo-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,13,16,.92) 0%,rgba(11,13,16,.7) 45%,rgba(11,13,16,.35) 100%)}
 .cg-stage{position:relative;aspect-ratio:16/11;min-height:240px}
-.cg-dev{position:absolute;left:0;top:8%;width:78%;aspect-ratio:16/10;border-radius:22px;border:7px solid #0B0D10;background:#0E1A2B;box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08);overflow:clip;cursor:pointer;transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .7s ease;transform-origin:left center;padding:0;font:inherit;color:inherit}
+.cg-dev{position:absolute;left:0;top:8%;width:78%;aspect-ratio:16/10;border-radius:22px;border:7px solid #0B0D10;background:#0E1A2B;box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08);overflow:clip;cursor:pointer;transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .7s ease,opacity .5s ease;transform-origin:left center;padding:0;font:inherit;color:inherit}
 .cg-dev img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .cg-slot-0{transform:none;z-index:3}
 .cg-slot-1{transform:translateX(32%) translateY(-2%) scale(.84) rotate(4deg);z-index:2;filter:brightness(.6)}
 .cg-slot-2{transform:translateX(60%) translateY(-4%) scale(.7) rotate(8deg);z-index:1;filter:brightness(.4)}
+.cg-slot-3{transform:translateX(60%) translateY(-4%) scale(.7) rotate(8deg);z-index:0;filter:brightness(.4);opacity:0;pointer-events:none}
 .cg-dev:not(.cg-slot-0):hover{filter:brightness(.85)}
 .cg-dev-ui{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border:0;padding:0;margin:0;background:transparent;color:inherit;font:inherit;cursor:pointer;z-index:1}
 .cg-dev-ui>span{opacity:0;transition:opacity .4s ease}
@@ -241,16 +242,18 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 </section>
 
 <section id="demo" class="cg-demo" style="scroll-margin-top: 66px;">
-<div aria-hidden="true" class="cg-demo-bg {{vidBg0}}" style="background-image: url(./assets/c02d185c2a9c7ffb00dd7a3644fe4fb0.jpg);"></div>
-<div aria-hidden="true" class="cg-demo-bg {{vidBg1}}" style="background-image: url(./assets/02107bc37804974c2157ad20e8fd10a4.jpg);"></div>
-<div aria-hidden="true" class="cg-demo-bg {{vidBg2}}" style="background-image: url(./assets/49c41ff610125ac48e9329a5f902ce51.jpg);"></div>
+<div aria-hidden="true" class="cg-demo-bg {{vidBg0}}" style="background-image: url(https://i.ytimg.com/vi/hM31B1hAFGA/maxresdefault.jpg);"></div>
+<div aria-hidden="true" class="cg-demo-bg {{vidBg1}}" style="background-image: url(./assets/c02d185c2a9c7ffb00dd7a3644fe4fb0.jpg);"></div>
+<div aria-hidden="true" class="cg-demo-bg {{vidBg2}}" style="background-image: url(./assets/02107bc37804974c2157ad20e8fd10a4.jpg);"></div>
+<div aria-hidden="true" class="cg-demo-bg {{vidBg3}}" style="background-image: url(./assets/49c41ff610125ac48e9329a5f902ce51.jpg);"></div>
 <div aria-hidden="true" class="cg-demo-shade"></div>
 <div class="cg-wrap cg-demo-grid" style="position: relative; padding-top: 88px; padding-bottom: 88px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 48px; align-items: center;">
 <div style="display: flex; flex-direction: column; gap: 16px; min-width: 0;">
 <p class="cg-eyebrow">{{t.demoLabel}}</p>
 <h2 class="cg-h2" style="color: #FFFFFF;">{{t.demoTitle}}</h2>
 <div class="cg-swap" key="{{vidKey}}" aria-live="polite" style="display: flex; flex-direction: column; gap: 6px; margin-top: 6px; min-height: 150px;">
-<p style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 1.5px; color: #23ADFA;">VU {{vidNum}} <span style="color: rgba(255,255,255,.45); letter-spacing: 0;">/ {{t.n3}}</span></p>
+<sc-if value="{{isOverview}}" hint-placeholder-val="{{false}}"><p style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 1.5px; color: #23ADFA;">{{t.vidOverview}}</p></sc-if>
+<sc-if value="{{isVu}}" hint-placeholder-val="{{true}}"><p style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 1.5px; color: #23ADFA;">VU {{vidNum}} <span style="color: rgba(255,255,255,.45); letter-spacing: 0;">/ {{t.n3}}</span></p></sc-if>
 <p style="margin: 0; font-weight: 600; font-size: clamp(22px, 2.4vw, 28px); line-height: 1.3;">{{vidTitle}}</p>
 <p style="margin: 0; color: #C9CED8; max-width: 460px;">{{vidText}}</p>
 <sc-if value="{{hasVid}}" hint-placeholder-val="{{true}}"><a href="{{vidUrl}}" target="_blank" rel="noopener" onClick="{{click}}" style="align-self: flex-start; margin-top: 4px; color: #8FD3FF; font-size: 14px; font-weight: 500;">{{t.openYoutube}} ↗</a></sc-if>
@@ -259,23 +262,28 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 <button type="button" class="cg-btn {{playCls}}" onClick="{{playVid}}" onMouseEnter="{{hover}}" style="font-family: inherit;"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg> {{playText}}</button>
 <button type="button" class="cg-btn cg-btn-line" onClick="{{nextVid}}" onMouseEnter="{{hover}}" style="font-family: inherit;">{{t.nextVideo}} <span aria-hidden="true">→</span></button>
 </div>
-<div style="display: flex; align-items: center; gap: 8px; margin-top: 10px;"><button type="button" class="cg-dot {{vidDot0}}" onClick="{{pickVid0}}" aria-label="VU {{t.n1}}"></button><button type="button" class="cg-dot {{vidDot1}}" onClick="{{pickVid1}}" aria-label="VU {{t.n2}}"></button><button type="button" class="cg-dot {{vidDot2}}" onClick="{{pickVid2}}" aria-label="VU {{t.n3}}"></button></div>
+<div style="display: flex; align-items: center; gap: 8px; margin-top: 10px;"><button type="button" class="cg-dot {{vidDot0}}" onClick="{{pickVid0}}" aria-label="{{t.vidOverview}}"></button><button type="button" class="cg-dot {{vidDot1}}" onClick="{{pickVid1}}" aria-label="VU {{t.n1}}"></button><button type="button" class="cg-dot {{vidDot2}}" onClick="{{pickVid2}}" aria-label="VU {{t.n2}}"></button><button type="button" class="cg-dot {{vidDot3}}" onClick="{{pickVid3}}" aria-label="VU {{t.n3}}"></button></div>
 </div>
 <div class="cg-stage">
 <div class="cg-dev {{vidSlot0}}">
-<img src="./assets/c02d185c2a9c7ffb00dd7a3644fe4fb0.jpg" alt="" style="">
-<button type="button" class="cg-dev-ui" onClick="{{cardVid0}}" onMouseEnter="{{hover}}" aria-label="VU {{t.n1}} · {{t.vu1Title}}"><span class="cg-dev-chip {{vidChipCls0}}">{{vidChip0}}</span><span class="cg-dev-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></button>
-<sc-if value="{{play0}}" hint-placeholder-val="{{false}}"><iframe class="cg-dev-frame" src="{{vidSrc0}}" title="VU {{t.n1}} · {{t.vu1Title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></sc-if>
+<img src="https://i.ytimg.com/vi/hM31B1hAFGA/maxresdefault.jpg" alt="" style="">
+<button type="button" class="cg-dev-ui" onClick="{{cardVid0}}" onMouseEnter="{{hover}}" aria-label="{{t.vidOverview}} · {{t.vid0Title}}"><span class="cg-dev-chip {{vidChipCls0}}">{{vidChip0}}</span><span class="cg-dev-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></button>
+<sc-if value="{{play0}}" hint-placeholder-val="{{false}}"><iframe class="cg-dev-frame" src="{{vidSrc0}}" title="{{t.vidOverview}} · {{t.vid0Title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></sc-if>
 </div>
 <div class="cg-dev {{vidSlot1}}">
-<img src="./assets/02107bc37804974c2157ad20e8fd10a4.jpg" alt="" style="object-position: top;">
-<button type="button" class="cg-dev-ui" onClick="{{cardVid1}}" onMouseEnter="{{hover}}" aria-label="VU {{t.n2}} · {{t.vu2Title}}"><span class="cg-dev-chip {{vidChipCls1}}">{{vidChip1}}</span><span class="cg-dev-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></button>
-<sc-if value="{{play1}}" hint-placeholder-val="{{false}}"><iframe class="cg-dev-frame" src="{{vidSrc1}}" title="VU {{t.n2}} · {{t.vu2Title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></sc-if>
+<img src="./assets/c02d185c2a9c7ffb00dd7a3644fe4fb0.jpg" alt="" style="">
+<button type="button" class="cg-dev-ui" onClick="{{cardVid1}}" onMouseEnter="{{hover}}" aria-label="VU {{t.n1}} · {{t.vu1Title}}"><span class="cg-dev-chip {{vidChipCls1}}">{{vidChip1}}</span><span class="cg-dev-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></button>
+<sc-if value="{{play1}}" hint-placeholder-val="{{false}}"><iframe class="cg-dev-frame" src="{{vidSrc1}}" title="VU {{t.n1}} · {{t.vu1Title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></sc-if>
 </div>
 <div class="cg-dev {{vidSlot2}}">
+<img src="./assets/02107bc37804974c2157ad20e8fd10a4.jpg" alt="" style="object-position: top;">
+<button type="button" class="cg-dev-ui" onClick="{{cardVid2}}" onMouseEnter="{{hover}}" aria-label="VU {{t.n2}} · {{t.vu2Title}}"><span class="cg-dev-chip {{vidChipCls2}}">{{vidChip2}}</span><span class="cg-dev-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></button>
+<sc-if value="{{play2}}" hint-placeholder-val="{{false}}"><iframe class="cg-dev-frame" src="{{vidSrc2}}" title="VU {{t.n2}} · {{t.vu2Title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></sc-if>
+</div>
+<div class="cg-dev {{vidSlot3}}">
 <img src="./assets/49c41ff610125ac48e9329a5f902ce51.jpg" alt="" style="">
-<button type="button" class="cg-dev-ui" onClick="{{cardVid2}}" onMouseEnter="{{hover}}" aria-label="VU {{t.n3}} · {{t.vu3Title}}"><span class="cg-dev-chip {{vidChipCls2}}">{{vidChip2}}</span><span class="cg-dev-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></button>
-<sc-if value="{{play2}}" hint-placeholder-val="{{false}}"><iframe class="cg-dev-frame" src="{{vidSrc2}}" title="VU {{t.n3}} · {{t.vu3Title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></sc-if>
+<button type="button" class="cg-dev-ui" onClick="{{cardVid3}}" onMouseEnter="{{hover}}" aria-label="VU {{t.n3}} · {{t.vu3Title}}"><span class="cg-dev-chip {{vidChipCls3}}">{{vidChip3}}</span><span class="cg-dev-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></button>
+<sc-if value="{{play3}}" hint-placeholder-val="{{false}}"><iframe class="cg-dev-frame" src="{{vidSrc3}}" title="VU {{t.n3}} · {{t.vu3Title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></sc-if>
 </div>
 </div>
 </div>
@@ -454,6 +462,9 @@ var I18N = {
     "sectionsLabel": "Page sections",
     "nextVideo": "Next video",
     "playVideo": "Play video",
+    "vidOverview": "OVERVIEW",
+    "vid0Title": "Learning rice field ecology through VR",
+    "vid1Text": "An introduction to CropGuard and the SIMPLE project.",
     "vid2Text": "Finding and classifying organisms in the rice field.",
     "vid3Text": "Placing pests on plants and watching real damage appear.",
     "vid4Text": "Matching natural enemies to pests so damaged plants recover.",
@@ -578,6 +589,9 @@ var I18N = {
     "sectionsLabel": "ផ្នែកនៃទំព័រ",
     "nextVideo": "វីដេអូបន្ទាប់",
     "playVideo": "ចាក់វីដេអូ",
+    "vidOverview": "ទិដ្ឋភាពទូទៅ",
+    "vid0Title": "រៀនអំពីប្រព័ន្ធអេកូឡូស៊ីវាលស្រែតាមរយៈ VR",
+    "vid1Text": "សេចក្តីណែនាំអំពី CropGuard និងគម្រោង SIMPLE។",
     "vid2Text": "ការស្វែងរក និងចាត់ថ្នាក់សារពាង្គកាយក្នុងវាលស្រែ។",
     "vid3Text": "ការដាក់សត្វចង្រៃលើដើមស្រូវ និងមើលការខូចខាតពិតប្រាកដលេចឡើង។",
     "vid4Text": "ការផ្គូផ្គងសត្រូវធម្មជាតិជាមួយសត្វចង្រៃ ដើម្បីឱ្យដើមស្រូវដែលខូចខាតងើបឡើងវិញ។",
@@ -629,7 +643,7 @@ var I18N = {
     "builtLabel": "បង្កើតឡើងដោយប្រើ"
   }
 };
-var VIDEOS = ['uUQS7yiwaLQ', '3w30yWKXqHE', 'eRRBODdBK58'];
+var VIDEOS = ['hM31B1hAFGA', 'uUQS7yiwaLQ', '3w30yWKXqHE', 'eRRBODdBK58'];
 var CONTACT_EMAIL = 'hongly.va@cadt.edu.kh';
 class Component extends DCLogic {
   constructor(props) {
@@ -679,7 +693,8 @@ class Component extends DCLogic {
     var t = I18N[this.state.lang] || I18N.en;
     var v = this.state.vid;
     try { document.documentElement.lang = this.state.lang; } catch (e) {}
-    return {
+    var n = VIDEOS.length;
+    var vals = {
       hover: function () {
         var now = Date.now();
         if (now - self.lastHover < 70) return;
@@ -719,12 +734,6 @@ class Component extends DCLogic {
         self.tone(660, 990, 0.1, 'triangle', 0.09, 0);
         self.setState({ lang: next });
       },
-      pickVid0: function () { self.pickVid(0); },
-      pickVid1: function () { self.pickVid(1); },
-      pickVid2: function () { self.pickVid(2); },
-      cardVid0: function () { self.cardVid(0); },
-      cardVid1: function () { self.cardVid(1); },
-      cardVid2: function () { self.cardVid(2); },
       playVid: function () { self.cardVid(self.state.vid); },
       hasEmail: !!CONTACT_EMAIL,
       noEmail: !CONTACT_EMAIL,
@@ -734,33 +743,29 @@ class Component extends DCLogic {
       vidUrl: VIDEOS[v] ? 'https://youtu.be/' + VIDEOS[v] : '#demo',
       playText: VIDEOS[v] ? t.playVideo : t.soon,
       playCls: VIDEOS[v] ? '' : 'is-off',
-      play0: this.state.playing && v === 0,
-      play1: this.state.playing && v === 1,
-      play2: this.state.playing && v === 2,
-      vidSrc0: this.src(0),
-      vidSrc1: this.src(1),
-      vidSrc2: this.src(2),
-      vidChip0: VIDEOS[0] ? 'YouTube' : t.soon,
-      vidChip1: VIDEOS[1] ? 'YouTube' : t.soon,
-      vidChip2: VIDEOS[2] ? 'YouTube' : t.soon,
-      vidChipCls0: VIDEOS[0] ? 'is-live' : '',
-      vidChipCls1: VIDEOS[1] ? 'is-live' : '',
-      vidChipCls2: VIDEOS[2] ? 'is-live' : '',
-      nextVid: function () { self.pickVid((self.state.vid + 1) % 3); },
+      nextVid: function () { self.pickVid((self.state.vid + 1) % n); },
       vidKey: 'v' + v,
-      vidNum: t['n' + (v + 1)],
-      vidTitle: t['vu' + (v + 1) + 'Title'],
-      vidText: t['vid' + (v + 2) + 'Text'],
-      vidSlot0: 'cg-slot-' + ((0 - v + 3) % 3),
-      vidSlot1: 'cg-slot-' + ((1 - v + 3) % 3),
-      vidSlot2: 'cg-slot-' + ((2 - v + 3) % 3),
-      vidBg0: v === 0 ? 'is-on' : '',
-      vidBg1: v === 1 ? 'is-on' : '',
-      vidBg2: v === 2 ? 'is-on' : '',
-      vidDot0: v === 0 ? 'is-on' : '',
-      vidDot1: v === 1 ? 'is-on' : '',
-      vidDot2: v === 2 ? 'is-on' : ''
+      // Slide 0 is the project overview; slides 1-3 are VU 1-3.
+      isOverview: v === 0,
+      isVu: v !== 0,
+      vidNum: t['n' + v],
+      vidTitle: v === 0 ? t.vid0Title : t['vu' + v + 'Title'],
+      vidText: t['vid' + (v + 1) + 'Text']
     };
+    for (var i = 0; i < n; i++) {
+      (function (i) {
+        vals['pickVid' + i] = function () { self.pickVid(i); };
+        vals['cardVid' + i] = function () { self.cardVid(i); };
+      })(i);
+      vals['play' + i] = this.state.playing && v === i;
+      vals['vidSrc' + i] = this.src(i);
+      vals['vidChip' + i] = VIDEOS[i] ? 'YouTube' : t.soon;
+      vals['vidChipCls' + i] = VIDEOS[i] ? 'is-live' : '';
+      vals['vidSlot' + i] = 'cg-slot-' + ((i - v + n) % n);
+      vals['vidBg' + i] = v === i ? 'is-on' : '';
+      vals['vidDot' + i] = v === i ? 'is-on' : '';
+    }
+    return vals;
   }
   src(i) {
     return VIDEOS[i] ? 'https://www.youtube-nocookie.com/embed/' + VIDEOS[i] + '?autoplay=1&rel=0&modestbranding=1&hl=' + this.state.lang : 'about:blank';
