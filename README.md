@@ -58,7 +58,7 @@ More information: <https://project-simple.eu/>
 
 ### Partners
 
-- **IRD** – French National Research Institute for Sustainable Development (project lead)
+- **IRD** – French National Research Institute for Sustainable Development
 - **CADT** – Cambodia Academy of Digital Technology
 - **CTU** – Can Tho University, Vietnam
 - **NSTDA** – National Science and Technology Development Agency, Thailand
