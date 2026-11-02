@@ -19,6 +19,7 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 .cg-root{--bg:#FFFFFF;--bg-alt:#F4F6FA;--card:#F4F6FA;--card2:#FFFFFF;--text:#1B1D22;--text2:#4A5160;--muted:#7A8190;--rule:#E3E7EF;--head:#26448F;--blue:#3A6FE5;--cyan:#23ADFA;--leaf:#4CAF50;--nav:#191B1F;--dark:#191B1F;--dark2:#23262C;--foot:#000000;--num:#26448F;transition:background-color .35s ease,color .35s ease}
 .cg-root.cg-dark{--bg:#121418;--bg-alt:#181B21;--card:#1D2027;--card2:#23262E;--text:#EEF1F6;--text2:#B7BECB;--muted:#8A92A1;--rule:#2C313A;--head:#8FB4FF;--num:#8FB4FF;--dark:#0C0D10;--dark2:#191B1F}
 .cg-root section,.cg-root footer,.cg-root .cg-card{transition:background-color .35s ease,color .35s ease}
+.cg-root>section{min-height:calc(100vh - var(--cg-head, 66px));min-height:calc(100svh - var(--cg-head, 66px));scroll-margin-top:var(--cg-head, 66px)!important;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
 .cg-root a{color:var(--blue)}
 .cg-wrap{max-width:1180px;margin:0 auto;padding:0 24px;box-sizing:border-box}
 .cg-h2{margin:0;font-weight:600;font-size:clamp(28px,3.2vw,36px);line-height:1.3;color:var(--head)}
@@ -26,6 +27,13 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 .cg-center .cg-h2::after{margin-left:auto;margin-right:auto}
 .cg-eyebrow{margin:0;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan)}
 .cg-lead{margin:0;color:var(--text2);font-size:16px}
+.cg-cite{font-size:.68em;line-height:0;margin-left:2px;white-space:nowrap}
+.cg-root .cg-cite a{color:inherit;opacity:.75;text-decoration:none;font-weight:600}
+.cg-root .cg-cite a:hover{opacity:1;text-decoration:underline}
+.cg-refs{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px;font-size:12px;line-height:1.55;color:var(--muted)}
+.cg-refs li{scroll-margin-top:calc(var(--cg-head, 66px) + 24px)}
+.cg-refs li:target{color:var(--text)}
+.cg-root .cg-refs a{color:inherit;text-decoration:underline;text-underline-offset:2px;word-break:break-all}
 .cg-num{font-family:Moul,serif;line-height:1.4}
 @keyframes cgRise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 .cg-g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -39,6 +47,7 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 .cg-root .cg-navlinks a:hover{background:rgba(255,255,255,.1)}
 .cg-root .cg-navlinks a{color:#FFFFFF;text-decoration:none;opacity:.92;transition:color .2s}
 .cg-root .cg-navlinks a:hover{color:var(--cyan);opacity:1}
+.cg-root .cg-navlinks a.is-active,.cg-root .cg-navlinks a.is-active:hover{background:var(--cyan);color:#000000;opacity:1}
 .cg-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:0 18px 0 24px;border-radius:24px;border:0;background:var(--cyan);color:#000000!important;font-weight:500;font-size:16px;text-decoration:none;transition:filter .2s,transform .2s;cursor:pointer;box-sizing:border-box}
 .cg-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
 .cg-btn-white{background:#FFFFFF;color:var(--blue)!important}
@@ -68,7 +77,49 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 .cg-dev-ui>span{opacity:0;transition:opacity .4s ease}
 .cg-slot-0 .cg-dev-ui>span{opacity:1}
 .cg-dev-chip.is-live{background:#E52D27}
-.cg-dev-frame{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2;background:#000}
+.cg-board{border:1.5px dashed var(--rule);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:22px}
+.cg-board-lab{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px}
+.cg-board-lab-icon{flex:0 0 44px;height:44px;border-radius:50%;background:var(--blue);color:#FFFFFF;display:flex;align-items:center;justify-content:center}
+.cg-board-lab-title{margin:0;font-weight:600;font-size:17px;color:var(--head)}
+.cg-board-lab-text{margin:2px 0 0;font-size:15px;color:var(--text2)}
+.cg-board-badge{padding:4px 12px;border-radius:999px;background:rgba(35,173,250,.14);color:var(--blue);font-size:12px;font-weight:600;letter-spacing:.5px;white-space:nowrap}
+.cg-board-flow{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px}
+.cg-board-rotate{margin:0;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--blue)}
+.cg-board-loop{align-self:stretch;height:22px;margin:0 calc((100% - 136px) / 6);border:1.5px dashed var(--blue);border-bottom:0;border-radius:10px 10px 0 0;opacity:.6;position:relative}
+.cg-board-loop::after{content:"";position:absolute;left:-6.5px;bottom:-6px;border:5.5px solid transparent;border-top:7px solid var(--blue)}
+.cg-roles{align-self:stretch;margin:0;padding:0;list-style:none;display:grid;grid-template-columns:minmax(0,1fr) 68px minmax(0,1fr) 68px minmax(0,1fr);align-items:stretch}
+.cg-role{--role:var(--blue);background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px;transition:border-color .25s,transform .25s}
+.cg-role:hover{border-color:var(--role);transform:translateY(-2px)}
+.cg-role.is-lead{border-color:var(--blue);box-shadow:0 0 0 3px rgba(35,173,250,.12)}
+.cg-role.is-amber{--role:#D9961A}
+.cg-role.is-green{--role:var(--leaf)}
+.cg-role-top{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--role)}
+.cg-role-tag{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.cg-role.is-lead .cg-role-tag{color:var(--blue)}
+.cg-role h3{margin:4px 0 0;font-size:19px;font-weight:600;color:var(--head)}
+.cg-role p{margin:0;font-size:15px;color:var(--text2)}
+.cg-role-skills{margin:auto 0 0;padding:8px 0 0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.cg-role-skills li{padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;color:var(--role);background:color-mix(in srgb,var(--role) 14%,transparent)}
+.cg-role-step{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted)}
+.cg-role-arrow{font-size:20px;line-height:1;font-weight:400}
+.cg-role-step small{font-size:11px;letter-spacing:.5px;white-space:nowrap}
+.cg-board-legend{margin:0;font-size:13px;color:var(--muted)}
+@media (max-width: 860px){.cg-roles{grid-template-columns:minmax(0,1fr)}.cg-role-step{flex-direction:row;gap:8px;padding:6px 0}.cg-role-arrow{transform:rotate(90deg)}.cg-board-loop{display:none}.cg-board-flow{gap:12px}}
+@media (max-width: 700px){.cg-board{padding:18px 16px}}
+.cg-modal{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;background:rgba(5,7,10,.84);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:cgFade .25s ease}
+.cg-modal-box{width:min(1100px,100%,calc((100vh - 150px) * 16 / 9));display:flex;flex-direction:column;gap:12px;color:#FFFFFF;animation:cgPop .35s cubic-bezier(.2,.8,.2,1)}
+.cg-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.cg-modal-kicker{margin:0;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#23ADFA}
+.cg-modal-title{margin:2px 0 0;font-size:clamp(17px,2vw,21px);font-weight:600;line-height:1.35}
+.cg-modal-close{flex:0 0 44px;width:44px;height:44px;padding:0;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#FFFFFF;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background-color .2s}
+.cg-modal-close:hover{background:rgba(255,255,255,.2)}
+.cg-modal-close:focus-visible{outline:2px solid #23ADFA;outline-offset:3px}
+.cg-modal-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:clip;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.cg-modal-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+html:has(.cg-modal){overflow:hidden}
+@media (max-width: 700px){.cg-modal{padding:16px}}
+@keyframes cgFade{from{opacity:0}to{opacity:1}}
+@keyframes cgPop{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
 .cg-dev-play{width:68px;height:68px;border-radius:999px;background:#23ADFA;color:#000;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(35,173,250,.25)}
 .cg-dev-chip{position:absolute;left:14px;top:14px;padding:3px 10px;border-radius:999px;background:rgba(11,13,16,.78);font-size:12px;font-weight:600}
 .cg-dot{width:10px;height:10px;padding:0;border-radius:999px;border:0;background:rgba(255,255,255,.35);cursor:pointer;transition:width .3s ease,background-color .3s}
@@ -76,8 +127,11 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 .cg-dot:focus-visible,.cg-dev-ui:focus-visible{outline:2px solid #23ADFA;outline-offset:3px}
 .cg-swap{animation:cgRise .6s cubic-bezier(.2,.8,.2,1) both}
 @media (max-width: 860px){.cg-demo-grid{grid-template-columns:minmax(0,1fr)!important}.cg-stage{margin-right:18%}}
-.cg-logo-pill{display:flex;align-items:center;justify-content:center;width:100%;max-width:240px;height:96px;padding:14px 24px;box-sizing:border-box;border-radius:999px;background:#FFFFFF;box-shadow:0 2px 12px rgba(0,0,0,.07)}
-.cg-logo-pill img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.cg-org{background:var(--card2);padding:24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cg-org-logo{display:flex;align-items:center;justify-content:center;width:100%;max-width:200px;height:72px}
+.cg-org-logo.is-wide{max-width:300px}
+.cg-org-logo img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.cg-root.cg-dark .cg-org{background:#F4F6FA;--text2:#4A5160;--blue:#2F5FD0}
 .cg-chip{padding:7px 16px;border-radius:999px;background:var(--card);color:var(--text)}
 .cg-rise{animation:cgRise .9s cubic-bezier(.2,.8,.2,1) both}
 .cg-d1{animation-delay:.1s}.cg-d2{animation-delay:.2s}.cg-d3{animation-delay:.3s}
@@ -111,21 +165,21 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 <button type="button" class="cg-icon-btn" onClick="{{toggleSound}}" aria-pressed="{{soundOn}}" aria-label="{{soundLabel}}" style="padding: 0;">
 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"></path><sc-if value="{{soundOn}}" hint-placeholder-val="{{true}}"><path d="M16.5 8.5a5 5 0 0 1 0 7"></path></sc-if><sc-if value="{{soundOff}}" hint-placeholder-val="{{false}}"><path d="M17 9l5 6M22 9l-5 6"></path></sc-if></svg>
 </button>
-<a class="cg-btn" href="#demo" onClick="{{click}}" onMouseEnter="{{hover}}" style="min-height: 42px; font-size: 15px;">{{t.watchDemo}} <span aria-hidden="true">→</span></a>
+<a class="cg-btn" href="#demo" onClick="{{openDemo}}" onMouseEnter="{{hover}}" style="min-height: 42px; font-size: 15px;">{{t.watchDemo}} <span aria-hidden="true">→</span></a>
 </div>
 </nav>
 </header>
 
-<section id="top" style="position: relative; overflow: clip; background: #0E1A2B; min-height: min(78vh, 720px); display: flex; align-items: flex-end;">
+<section id="top" style="position: relative; overflow: clip; background: #0E1A2B;">
 <img src="./assets/hero-rice-field.jpg" alt="{{t.heroAlt}}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
 <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,26,43,0) 35%, rgba(14,26,43,.55) 100%);"></div>
-<div class="cg-wrap" style="position: relative; width: 100%; padding-top: 140px; padding-bottom: 56px;">
+<div class="cg-wrap" style="position: relative; width: 100%; padding-top: 56px; padding-bottom: 88px;">
 <div class="cg-rise" style="max-width: 760px; padding: 28px 30px; border-radius: 12px; background: rgba(25,27,31,.62); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: #FFFFFF; display: flex; flex-direction: column; gap: 14px;">
 <p class="cg-eyebrow">{{t.heroBadge}}</p>
 <h1 style="margin: 0; font-weight: 700; font-size: clamp(30px, 4vw, 48px); line-height: 1.2; text-shadow: 0 2px 8px rgba(0,0,0,.35);"><span style="color: #FFD25A;">{{t.heroPest}}</span>{{t.heroOr}}<span style="color: #7EE08A;">{{t.heroProtector}}</span>{{t.heroFind}}</h1>
 <p style="margin: 0; font-size: 17px; color: #E6EAF2;">{{t.heroLead}}</p>
 <div class="cg-herobtns" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px;">
-<a class="cg-btn" href="#demo" onClick="{{click}}" onMouseEnter="{{hover}}">{{t.heroWatch}}</a>
+<a class="cg-btn" href="#demo" onClick="{{openDemo}}" onMouseEnter="{{hover}}">{{t.heroWatch}}</a>
 <a class="cg-btn cg-btn-line" href="#universes" onClick="{{click}}" onMouseEnter="{{hover}}">{{t.heroExplore}} <span aria-hidden="true">→</span></a>
 </div>
 <ul aria-label="{{t.factsLabel}}" style="margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px;">
@@ -138,7 +192,32 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 </div>
 </section>
 
-<section id="problem" class="cg-what" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: #3A6FE5; color: #FFFFFF; scroll-margin-top: 66px;">
+<section id="background" data-group="background" style="background: var(--bg-alt); scroll-margin-top: 66px;">
+<div class="cg-wrap" style="padding-top: 72px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 32px;">
+<h2 class="cg-h2 cg-reveal">{{t.simLabel}}</h2>
+<div class="cg-card cg-reveal" style="background: var(--card2); padding: 32px; display: flex; flex-wrap: wrap; gap: 32px; align-items: center;">
+<div style="flex: 0 1 240px; display: flex; justify-content: center;"><span class="cg-pill" style="padding: 22px 30px; border-radius: 999px; background: #FFFFFF;"><img src="./assets/simple-logo.jpg" alt="SIMPLE project logo" style="width: 180px; max-width: 100%; height: auto; display: block;"></span></div>
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+<h3 style="margin: 0; font-size: 21px; font-weight: 600; color: var(--blue);">{{t.simTitle}}</h3>
+<p style="margin: 0; color: var(--text2);">{{t.simText}}</p>
+<a href="https://project-simple.eu/" onClick="{{click}}" onMouseEnter="{{hover}}" style="font-weight: 700; color: var(--text); align-self: flex-start;">[{{t.simVisit}}]</a>
+</div>
+</div>
+<h3 class="cg-reveal" style="margin: 8px 0 0; font-size: 22px; font-weight: 600; color: var(--head);">{{t.coFunded}}</h3>
+<ul class="cg-g2" style="margin: 0; padding: 0; list-style: none; display: grid; gap: 16px;">
+<li class="cg-card cg-reveal cg-org"><span class="cg-org-logo is-wide"><img src="./assets/partners/eu-cofunded.png" alt="Co-funded by the European Union logo"></span><p style="margin: 6px 0 0; font-weight: 600; font-size: 17px; color: var(--blue);">European Union</p><p style="margin: 0; color: var(--text2); font-size: 14px; line-height: 1.6;">{{t.pEU}}</p></li>
+<li class="cg-card cg-reveal cg-org"><span class="cg-org-logo"><img src="./assets/partners/global-gateway.png" alt="Global Gateway logo"></span><p style="margin: 6px 0 0; font-weight: 600; font-size: 17px; color: var(--blue);">Global Gateway</p><p style="margin: 0; color: var(--text2); font-size: 14px; line-height: 1.6;">{{t.pGG}}</p></li>
+</ul>
+<h3 class="cg-reveal" style="margin: 8px 0 0; font-size: 22px; font-weight: 600; color: var(--head);">{{t.partners}}</h3>
+<ul class="cg-g3" style="margin: 0; padding: 0; list-style: none; display: grid; gap: 16px;">
+<li class="cg-card cg-reveal cg-org"><span class="cg-org-logo"><img src="./assets/partners/ird.png" alt="IRD logo"></span><p style="margin: 6px 0 0; font-weight: 600; font-size: 17px; color: var(--blue);">IRD</p><p style="margin: 0; color: var(--text2); font-size: 14px; line-height: 1.6;">{{t.pIRD}}</p></li>
+<li class="cg-card cg-reveal cg-org"><span class="cg-org-logo"><img src="./assets/partners/cadt.png" alt="CADT logo"></span><p style="margin: 6px 0 0; font-weight: 600; font-size: 17px; color: var(--blue);">CADT</p><p style="margin: 0; color: var(--text2); font-size: 14px; line-height: 1.6;">{{t.pCADT}}</p></li>
+<li class="cg-card cg-reveal cg-org"><span class="cg-org-logo"><img src="./assets/partners/cirad.png" alt="CIRAD logo"></span><p style="margin: 6px 0 0; font-weight: 600; font-size: 17px; color: var(--blue);">CIRAD</p><p style="margin: 0; color: var(--text2); font-size: 14px; line-height: 1.6;">{{t.pCIRAD}}</p></li>
+</ul>
+</div>
+</section>
+
+<section id="problem" data-group="problem" class="cg-what" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: #3A6FE5; color: #FFFFFF; scroll-margin-top: 66px;">
 <div class="cg-what-img" style="position: relative; min-height: 420px; overflow: clip;">
 <img src="./assets/ac81540b857eeba6f766307a669e9790.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;">
 <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(97deg, rgba(58,111,229,0) 0%, rgba(58,111,229,.2) 45%, rgba(58,111,229,1) 100%);"></div>
@@ -146,26 +225,25 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 <div class="cg-reveal" style="padding: 64px clamp(20px, 5vw, 64px); display: flex; flex-direction: column; gap: 16px; justify-content: center; max-width: 620px; box-sizing: border-box;">
 <p class="cg-eyebrow" style="color: #BFE6FF;">{{t.probLabel}}</p>
 <h2 class="cg-h2" style="color: #FFFFFF;">{{t.probTitle}}</h2>
-<p style="margin: 0; color: #EAF0FF;">{{t.probLead}}</p>
+<p style="margin: 0; color: #EAF0FF;">{{t.probLead1}}<sup class="cg-cite"><a href="#ref-1" aria-label="{{t.refLabel}} 1">[1]</a></sup> {{t.probLead2}}<sup class="cg-cite"><a href="#ref-2" aria-label="{{t.refLabel}} 2">[2]</a></sup></p>
 <a class="cg-btn cg-btn-white" href="#universes" onClick="{{click}}" onMouseEnter="{{hover}}" style="align-self: flex-start; margin-top: 8px;">{{t.heroExplore}} <span aria-hidden="true">→</span></a>
 </div>
 </section>
 
-<section aria-label="{{t.numbersLabel}}" style="background: var(--bg);">
+<section aria-label="{{t.numbersLabel}}" data-group="problem" style="background: var(--bg);">
 <div class="cg-wrap cg-g4" style="padding-top: 56px; padding-bottom: 12px; display: grid; gap: 20px;">
-<div class="cg-card cg-reveal" style="padding: 24px; text-align: center;"><p style="margin: 0; font-weight: 700; font-size: 40px; line-height: 1.2; color: var(--head);">~90%</p><p style="margin: 6px 0 0; font-size: 14px; color: var(--text2);">{{t.stat1}}</p></div>
-<div class="cg-card cg-reveal" style="padding: 24px; text-align: center;"><p style="margin: 0; font-weight: 700; font-size: 40px; line-height: 1.2; color: var(--head);">~70%</p><p style="margin: 6px 0 0; font-size: 14px; color: var(--text2);">{{t.stat2}}</p></div>
+<div class="cg-card cg-reveal" style="padding: 24px; text-align: center;"><p style="margin: 0; font-weight: 700; font-size: 40px; line-height: 1.2; color: var(--head);">~90%</p><p style="margin: 6px 0 0; font-size: 14px; color: var(--text2);">{{t.stat1}}<sup class="cg-cite"><a href="#ref-3" aria-label="{{t.refLabel}} 3">[3]</a></sup></p></div>
+<div class="cg-card cg-reveal" style="padding: 24px; text-align: center;"><p style="margin: 0; font-weight: 700; font-size: 40px; line-height: 1.2; color: var(--head);">~2/3</p><p style="margin: 6px 0 0; font-size: 14px; color: var(--text2);">{{t.stat2}}<sup class="cg-cite"><a href="#ref-3" aria-label="{{t.refLabel}} 3">[3]</a></sup></p></div>
 <div class="cg-card cg-reveal" style="padding: 24px; text-align: center;"><p style="margin: 0; font-weight: 700; font-size: 40px; line-height: 1.2; color: var(--leaf);">23</p><p style="margin: 6px 0 0; font-size: 14px; color: var(--text2);">{{t.stat3}}</p></div>
 <div class="cg-card cg-reveal" style="padding: 24px; text-align: center;"><p style="margin: 0; font-weight: 700; font-size: 40px; line-height: 1.2; color: var(--cyan);">3</p><p style="margin: 6px 0 0; font-size: 14px; color: var(--text2);">{{t.stat4}}</p></div>
 </div>
-<p class="cg-wrap" style="margin: 0 auto; padding-top: 6px; padding-bottom: 8px; font-size: 12px; color: var(--muted);">{{t.statSource}}</p>
-<div class="cg-wrap cg-g2" style="padding-top: 32px; padding-bottom: 72px; display: grid; gap: 20px;">
+<div class="cg-wrap cg-g2" style="padding-top: 32px; padding-bottom: 28px; display: grid; gap: 20px;">
 <div class="cg-card cg-reveal" style="padding: 30px; display: flex; flex-direction: column; gap: 12px;">
 <div style="display: flex; align-items: center; gap: 14px;"><span aria-hidden="true" style="width: 46px; height: 46px; flex: 0 0 46px; border-radius: 50%; background: var(--card2); box-shadow: 0 2px 10px rgba(0,0,0,.06); display: flex; align-items: center; justify-content: center; color: var(--leaf);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 21V9"></path><path d="M12 13c-3 0-5-2-5-5 3 0 5 2 5 5zM12 10c0-3 2-5 5-5 0 3-2 5-5 5z"></path></svg></span><h3 style="margin: 0; font-size: 21px; font-weight: 600; color: var(--head);">{{t.fieldTitle}}</h3></div>
 <ul style="margin: 0; padding-left: 20px; color: var(--text2); display: flex; flex-direction: column; gap: 6px;">
-<li>{{t.field1}}</li>
-<li>{{t.field2}}</li>
-<li>{{t.field3}}</li>
+<li>{{t.field1}}<sup class="cg-cite"><a href="#ref-1" aria-label="{{t.refLabel}} 1">[1]</a></sup></li>
+<li>{{t.field2}}<sup class="cg-cite"><a href="#ref-2" aria-label="{{t.refLabel}} 2">[2]</a></sup></li>
+<li>{{t.field3}}<sup class="cg-cite"><a href="#ref-1" aria-label="{{t.refLabel}} 1">[1]</a></sup></li>
 </ul>
 </div>
 <div class="cg-card cg-reveal" style="padding: 30px; display: flex; flex-direction: column; gap: 12px;">
@@ -177,9 +255,17 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 </ul>
 </div>
 </div>
+<div class="cg-wrap cg-reveal" style="padding-bottom: 72px;">
+<h3 style="margin: 0 0 8px; font-size: 15px; font-weight: 600; color: var(--head);">{{t.refsTitle}}</h3>
+<ol class="cg-refs">
+<li id="ref-1">Dunn, L., Latty, T., Van Ogtrop, F. F., &amp; Tan, D. K. Y. (2023). Cambodian rice farmers' knowledge, attitudes, and practices (KAPs) regarding insect pest management and pesticide use. <i>International Journal of Agricultural Sustainability, 21</i>(1), Article 2178804. <a href="https://doi.org/10.1080/14735903.2023.2178804" target="_blank" rel="noopener">https://doi.org/10.1080/14735903.2023.2178804</a></li>
+<li id="ref-2">Ngin, C., Suon, S., Tanaka, T., Yamauchi, A., Kawakita, K., &amp; Chiba, S. (2017). Impact of insecticide applications on arthropod predators and plant feeders in Cambodian rice fields. <i>Phytobiomes Journal, 1</i>(3), 128–137. <a href="https://doi.org/10.1094/PBIOMES-01-17-0002-R" target="_blank" rel="noopener">https://doi.org/10.1094/PBIOMES-01-17-0002-R</a></li>
+<li id="ref-3">Kean, S. (2012). <i>The rice situation in Cambodia</i> (Technical Assistance Consultant's Report, TA 7495-REG). Asian Development Bank. <a href="https://www.adb.org/sites/default/files/project-documents//43430-012-reg-tacr-01.pdf" target="_blank" rel="noopener">adb.org/sites/default/files/project-documents//43430-012-reg-tacr-01.pdf</a></li>
+</ol>
+</div>
 </section>
 
-<section id="universes" style="background: var(--bg-alt); scroll-margin-top: 66px;">
+<section id="universes" data-group="solution" style="background: var(--bg-alt); scroll-margin-top: 66px;">
 <div class="cg-wrap" style="padding-top: 72px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 36px;">
 <div class="cg-reveal" style="display: flex; flex-direction: column; gap: 14px; max-width: 780px;">
 <h2 class="cg-h2">{{t.vuTitle}}</h2>
@@ -187,7 +273,7 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 </div>
 <div class="cg-g3" style="display: grid; gap: 20px;">
 <article class="cg-card cg-reveal" onMouseEnter="{{hover}}" style="background: var(--card2); display: flex; flex-direction: column;">
-<div style="overflow: clip;"><img src="./assets/c02d185c2a9c7ffb00dd7a3644fe4fb0.jpg" alt="{{t.vu1Alt}}" style="width: 100%; height: clamp(150px, 24vh, 210px); object-fit: cover; display: block;"></div>
+<div style="overflow: clip;"><img src="./assets/vu1-cover.jpg" alt="{{t.vu1Alt}}" style="width: 100%; height: clamp(150px, 24vh, 210px); object-fit: cover; display: block;"></div>
 <div style="padding: 0 24px 28px; display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center;">
 <span class="cg-pill" style="margin-top: -22px; gap: 10px; font-size: 13px; font-weight: 600; color: var(--muted);">VU <span class="cg-num" style="font-size: 18px; color: var(--num);">{{t.n1}}</span></span>
 <h3 style="margin: 4px 0 0; font-size: 20px; font-weight: 600; line-height: 1.35; color: var(--head);">{{t.vu1Title}}</h3>
@@ -195,7 +281,7 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 </div>
 </article>
 <article class="cg-card cg-reveal" onMouseEnter="{{hover}}" style="background: var(--card2); display: flex; flex-direction: column;">
-<div style="overflow: clip; background: #FFFFFF;"><img src="./assets/02107bc37804974c2157ad20e8fd10a4.jpg" alt="{{t.vu2Alt}}" style="width: 100%; height: clamp(150px, 24vh, 210px); object-fit: cover; object-position: top; display: block;"></div>
+<div style="overflow: clip;"><img src="./assets/vu2-cover.jpg" alt="{{t.vu2Alt}}" style="width: 100%; height: clamp(150px, 24vh, 210px); object-fit: cover; object-position: top; display: block;"></div>
 <div style="padding: 0 24px 28px; display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center;">
 <span class="cg-pill" style="margin-top: -22px; gap: 10px; font-size: 13px; font-weight: 600; color: var(--muted);">VU <span class="cg-num" style="font-size: 18px; color: var(--num);">{{t.n2}}</span></span>
 <h3 style="margin: 4px 0 0; font-size: 20px; font-weight: 600; line-height: 1.35; color: var(--head);">{{t.vu2Title}}</h3>
@@ -203,7 +289,7 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 </div>
 </article>
 <article class="cg-card cg-reveal" onMouseEnter="{{hover}}" style="background: var(--card2); display: flex; flex-direction: column;">
-<div style="overflow: clip;"><img src="./assets/49c41ff610125ac48e9329a5f902ce51.jpg" alt="{{t.vu3Alt}}" style="width: 100%; height: clamp(150px, 24vh, 210px); object-fit: cover; display: block;"></div>
+<div style="overflow: clip;"><img src="./assets/vu3-cover.jpg" alt="{{t.vu3Alt}}" style="width: 100%; height: clamp(150px, 24vh, 210px); object-fit: cover; display: block;"></div>
 <div style="padding: 0 24px 28px; display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center;">
 <span class="cg-pill" style="margin-top: -22px; gap: 10px; font-size: 13px; font-weight: 600; color: var(--muted);">VU <span class="cg-num" style="font-size: 18px; color: var(--num);">{{t.n3}}</span></span>
 <h3 style="margin: 4px 0 0; font-size: 20px; font-weight: 600; line-height: 1.35; color: var(--head);">{{t.vu3Title}}</h3>
@@ -214,38 +300,36 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 </div>
 </section>
 
-<section id="session" style="background: var(--bg); scroll-margin-top: 66px;">
-<div class="cg-wrap" style="padding-top: 72px; padding-bottom: 72px; display: flex; flex-wrap: wrap; gap: 44px; align-items: flex-start;">
-<div class="cg-reveal" style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 14px;">
+<section id="session" data-group="solution" style="background: var(--bg); scroll-margin-top: 66px;">
+<div class="cg-wrap" style="padding-top: 72px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 28px;">
+<div class="cg-reveal" style="display: flex; flex-direction: column; gap: 14px; max-width: 820px;">
+<p class="cg-eyebrow">{{t.sessKicker}}</p>
 <h2 class="cg-h2">{{t.sessTitle}}</h2>
 <p class="cg-lead">{{t.sessLead}}</p>
-<div class="cg-card" style="margin-top: 10px; padding: 24px 26px; display: flex; gap: 16px; align-items: flex-start;">
-<span aria-hidden="true" style="flex: 0 0 44px; height: 44px; border-radius: 50%; background: var(--blue); color: #FFFFFF; display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="4"></rect><circle cx="8.5" cy="12" r="1.6"></circle><circle cx="15.5" cy="12" r="1.6"></circle></svg></span>
-<div><p style="margin: 0; font-weight: 600; font-size: 18px; color: var(--head);">{{t.labTitle}}</p><p style="margin: 4px 0 0; font-size: 15px; color: var(--text2);">{{t.labText}}</p></div>
 </div>
-</div>
-<ol style="flex: 1 1 460px; min-width: 0; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px;">
-<li class="cg-card cg-reveal" onMouseEnter="{{hover}}" style="display: flex; gap: 18px; align-items: center; padding: 20px 24px;">
-<span class="cg-num" aria-hidden="true" style="flex: 0 0 50px; height: 50px; border-radius: 50%; background: var(--card2); box-shadow: 0 2px 10px rgba(0,0,0,.06); display: flex; align-items: center; justify-content: center; font-size: 19px; color: var(--num);">{{t.n1}}</span>
-<div style="min-width: 0;"><h3 style="margin: 0; font-size: 18px; font-weight: 600; color: var(--head);">{{t.role1}}</h3><p style="margin: 2px 0 0; color: var(--text2); font-size: 15px;">{{t.role1Text}}</p></div>
-</li>
-<li class="cg-card cg-reveal" onMouseEnter="{{hover}}" style="display: flex; gap: 18px; align-items: center; padding: 20px 24px;">
-<span class="cg-num" aria-hidden="true" style="flex: 0 0 50px; height: 50px; border-radius: 50%; background: var(--card2); box-shadow: 0 2px 10px rgba(0,0,0,.06); display: flex; align-items: center; justify-content: center; font-size: 19px; color: var(--num);">{{t.n2}}</span>
-<div style="min-width: 0;"><h3 style="margin: 0; font-size: 18px; font-weight: 600; color: var(--head);">{{t.role2}}</h3><p style="margin: 2px 0 0; color: var(--text2); font-size: 15px;">{{t.role2Text}}</p></div>
-</li>
-<li class="cg-card cg-reveal" onMouseEnter="{{hover}}" style="display: flex; gap: 18px; align-items: center; padding: 20px 24px;">
-<span class="cg-num" aria-hidden="true" style="flex: 0 0 50px; height: 50px; border-radius: 50%; background: var(--card2); box-shadow: 0 2px 10px rgba(0,0,0,.06); display: flex; align-items: center; justify-content: center; font-size: 19px; color: var(--num);">{{t.n3}}</span>
-<div style="min-width: 0;"><h3 style="margin: 0; font-size: 18px; font-weight: 600; color: var(--head);">{{t.role3}}</h3><p style="margin: 2px 0 0; color: var(--text2); font-size: 15px;">{{t.role3Text}}</p></div>
-</li>
+<div class="cg-board cg-reveal">
+<div class="cg-board-lab"><span class="cg-board-lab-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2"></rect><path d="M9 8V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"></path></svg></span><div style="flex: 1 1 260px; min-width: 0;"><p class="cg-board-lab-title">{{t.labTitle}}</p><p class="cg-board-lab-text">{{t.labText}}</p></div><span class="cg-board-badge">{{t.labBadge}}</span></div>
+<div class="cg-board-flow">
+<p class="cg-board-rotate"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.6-4.5L4 8M4 4v4h4M4 13a8 8 0 0 0 14.6 4.5L20 16M20 20v-4h-4"></path></svg> {{t.rotateLabel}}</p>
+<div class="cg-board-loop" aria-hidden="true"></div>
+<ol class="cg-roles">
+<li class="cg-role cg-reveal is-lead" onMouseEnter="{{hover}}"><div class="cg-role-top"><span class="cg-role-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="10" rx="4"></rect><circle cx="8.5" cy="12" r="1.6"></circle><circle cx="15.5" cy="12" r="1.6"></circle></svg></span><span class="cg-role-tag">{{t.roleTag1}}</span></div><h3>{{t.role1}}</h3><p>{{t.role1Text}}</p><ul class="cg-role-skills" aria-label="{{t.skillsLabel}}"><li>{{t.skill1a}}</li><li>{{t.skill1b}}</li></ul></li>
+<li class="cg-role-step" aria-hidden="true"><b class="cg-role-arrow">&#8594;</b><small>{{t.stepReport}}</small></li>
+<li class="cg-role cg-reveal is-amber" onMouseEnter="{{hover}}"><div class="cg-role-top"><span class="cg-role-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2z"></path><path d="M5 18a2 2 0 0 1 2-2h11M9 8h5M9 11h5"></path></svg></span><span class="cg-role-tag">{{t.roleTag2}}</span></div><h3>{{t.role2}}</h3><p>{{t.role2Text}}</p><ul class="cg-role-skills" aria-label="{{t.skillsLabel}}"><li>{{t.skill2a}}</li><li>{{t.skill2b}}</li></ul></li>
+<li class="cg-role-step" aria-hidden="true"><b class="cg-role-arrow">&#8594;</b><small>{{t.stepVerify}}</small></li>
+<li class="cg-role cg-reveal is-green" onMouseEnter="{{hover}}"><div class="cg-role-top"><span class="cg-role-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1-4L16 5a2 2 0 0 1 3 3L8 19z"></path><path d="M14 7l3 3"></path></svg></span><span class="cg-role-tag">{{t.roleTag3}}</span></div><h3>{{t.role3}}</h3><p>{{t.role3Text}}</p><ul class="cg-role-skills" aria-label="{{t.skillsLabel}}"><li>{{t.skill3a}}</li><li>{{t.skill3b}}</li></ul></li>
 </ol>
+</div>
+<p class="cg-board-legend">{{t.boardLegend}}</p>
+</div>
 </div>
 </section>
 
-<section id="demo" class="cg-demo" style="scroll-margin-top: 66px;">
+<section id="demo" data-group="solution" class="cg-demo" style="scroll-margin-top: 66px;">
 <div aria-hidden="true" class="cg-demo-bg {{vidBg0}}" style="background-image: url(./assets/overview-thumb.jpg);"></div>
-<div aria-hidden="true" class="cg-demo-bg {{vidBg1}}" style="background-image: url(./assets/c02d185c2a9c7ffb00dd7a3644fe4fb0.jpg);"></div>
-<div aria-hidden="true" class="cg-demo-bg {{vidBg2}}" style="background-image: url(./assets/02107bc37804974c2157ad20e8fd10a4.jpg);"></div>
-<div aria-hidden="true" class="cg-demo-bg {{vidBg3}}" style="background-image: url(./assets/49c41ff610125ac48e9329a5f902ce51.jpg);"></div>
+<div aria-hidden="true" class="cg-demo-bg {{vidBg1}}" style="background-image: url(./assets/vu1-cover.jpg);"></div>
+<div aria-hidden="true" class="cg-demo-bg {{vidBg2}}" style="background-image: url(./assets/vu2-cover.jpg);"></div>
+<div aria-hidden="true" class="cg-demo-bg {{vidBg3}}" style="background-image: url(./assets/vu3-cover.jpg);"></div>
 <div aria-hidden="true" class="cg-demo-shade"></div>
 <div class="cg-wrap cg-demo-grid" style="position: relative; padding-top: 88px; padding-bottom: 88px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 48px; align-items: center;">
 <div style="display: flex; flex-direction: column; gap: 16px; min-width: 0;">
@@ -268,37 +352,33 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 <div class="cg-dev {{vidSlot0}}">
 <img src="./assets/overview-thumb.jpg" alt="" style="">
 <button type="button" class="cg-dev-ui" onClick="{{cardVid0}}" onMouseEnter="{{hover}}" aria-label="{{t.vidOverview}} · {{t.vid0Title}}"><span class="cg-dev-chip {{vidChipCls0}}">{{vidChip0}}</span><span class="cg-dev-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></button>
-<sc-if value="{{play0}}" hint-placeholder-val="{{false}}"><iframe class="cg-dev-frame" src="{{vidSrc0}}" title="{{t.vidOverview}} · {{t.vid0Title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></sc-if>
 </div>
 <div class="cg-dev {{vidSlot1}}">
-<img src="./assets/c02d185c2a9c7ffb00dd7a3644fe4fb0.jpg" alt="" style="">
+<img src="./assets/vu1-cover.jpg" alt="" style="">
 <button type="button" class="cg-dev-ui" onClick="{{cardVid1}}" onMouseEnter="{{hover}}" aria-label="VU {{t.n1}} · {{t.vu1Title}}"><span class="cg-dev-chip {{vidChipCls1}}">{{vidChip1}}</span><span class="cg-dev-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></button>
-<sc-if value="{{play1}}" hint-placeholder-val="{{false}}"><iframe class="cg-dev-frame" src="{{vidSrc1}}" title="VU {{t.n1}} · {{t.vu1Title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></sc-if>
 </div>
 <div class="cg-dev {{vidSlot2}}">
-<img src="./assets/02107bc37804974c2157ad20e8fd10a4.jpg" alt="" style="object-position: top;">
+<img src="./assets/vu2-cover.jpg" alt="" style="">
 <button type="button" class="cg-dev-ui" onClick="{{cardVid2}}" onMouseEnter="{{hover}}" aria-label="VU {{t.n2}} · {{t.vu2Title}}"><span class="cg-dev-chip {{vidChipCls2}}">{{vidChip2}}</span><span class="cg-dev-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></button>
-<sc-if value="{{play2}}" hint-placeholder-val="{{false}}"><iframe class="cg-dev-frame" src="{{vidSrc2}}" title="VU {{t.n2}} · {{t.vu2Title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></sc-if>
 </div>
 <div class="cg-dev {{vidSlot3}}">
-<img src="./assets/49c41ff610125ac48e9329a5f902ce51.jpg" alt="" style="">
+<img src="./assets/vu3-cover.jpg" alt="" style="">
 <button type="button" class="cg-dev-ui" onClick="{{cardVid3}}" onMouseEnter="{{hover}}" aria-label="VU {{t.n3}} · {{t.vu3Title}}"><span class="cg-dev-chip {{vidChipCls3}}">{{vidChip3}}</span><span class="cg-dev-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg></span></button>
-<sc-if value="{{play3}}" hint-placeholder-val="{{false}}"><iframe class="cg-dev-frame" src="{{vidSrc3}}" title="VU {{t.n3}} · {{t.vu3Title}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></sc-if>
 </div>
 </div>
 </div>
 </section>
 
-<section id="impact" style="background: var(--bg); scroll-margin-top: 66px;">
+<section id="impact" data-group="solution" style="background: var(--bg); scroll-margin-top: 66px;">
 <div class="cg-wrap" style="padding-top: 72px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 36px;">
 <div class="cg-reveal cg-center" style="text-align: center;">
 <h2 class="cg-h2">{{t.impTitle}}</h2>
 </div>
 <div class="cg-g4 cg-1sm" style="display: grid; gap: 20px;">
-<div class="cg-card cg-reveal" style="padding: 26px; text-align: center;"><h3 style="margin: 0 0 8px; font-size: 18px; font-weight: 600; color: var(--head);">{{t.imp1}}</h3><p style="margin: 0; color: var(--text2); font-size: 15px;">{{t.imp1Text}}</p></div>
-<div class="cg-card cg-reveal" style="padding: 26px; text-align: center;"><h3 style="margin: 0 0 8px; font-size: 18px; font-weight: 600; color: var(--head);">{{t.imp2}}</h3><p style="margin: 0; color: var(--text2); font-size: 15px;">{{t.imp2Text}}</p></div>
-<div class="cg-card cg-reveal" style="padding: 26px; text-align: center;"><h3 style="margin: 0 0 8px; font-size: 18px; font-weight: 600; color: var(--head);">{{t.imp3}}</h3><p style="margin: 0; color: var(--text2); font-size: 15px;">{{t.imp3Text}}</p></div>
-<div class="cg-card cg-reveal" style="padding: 26px; text-align: center;"><h3 style="margin: 0 0 8px; font-size: 18px; font-weight: 600; color: var(--head);">{{t.imp4}}</h3><p style="margin: 0; color: var(--text2); font-size: 15px;">{{t.imp4Text}}</p></div>
+<div class="cg-card cg-reveal" style="padding: 26px; text-align: center;"><span aria-hidden="true" style="width: 46px; height: 46px; margin: 0 auto 12px; border-radius: 50%; background: var(--card2); box-shadow: 0 2px 10px rgba(0,0,0,.06); display: flex; align-items: center; justify-content: center; color: var(--cyan);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"></path><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"></path></svg></span><h3 style="margin: 0 0 8px; font-size: 18px; font-weight: 600; color: var(--head);">{{t.imp1}}</h3><p style="margin: 0; color: var(--text2); font-size: 15px;">{{t.imp1Text}}</p></div>
+<div class="cg-card cg-reveal" style="padding: 26px; text-align: center;"><span aria-hidden="true" style="width: 46px; height: 46px; margin: 0 auto 12px; border-radius: 50%; background: var(--card2); box-shadow: 0 2px 10px rgba(0,0,0,.06); display: flex; align-items: center; justify-content: center; color: var(--blue);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"></rect><path d="M8 20l4-4 4 4M7 8h6M7 11h4"></path></svg></span><h3 style="margin: 0 0 8px; font-size: 18px; font-weight: 600; color: var(--head);">{{t.imp2}}</h3><p style="margin: 0; color: var(--text2); font-size: 15px;">{{t.imp2Text}}</p></div>
+<div class="cg-card cg-reveal" style="padding: 26px; text-align: center;"><span aria-hidden="true" style="width: 46px; height: 46px; margin: 0 auto 12px; border-radius: 50%; background: var(--card2); box-shadow: 0 2px 10px rgba(0,0,0,.06); display: flex; align-items: center; justify-content: center; color: var(--blue);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="4"></rect><circle cx="8.5" cy="12" r="1.6"></circle><circle cx="15.5" cy="12" r="1.6"></circle></svg></span><h3 style="margin: 0 0 8px; font-size: 18px; font-weight: 600; color: var(--head);">{{t.imp3}}</h3><p style="margin: 0; color: var(--text2); font-size: 15px;">{{t.imp3Text}}</p></div>
+<div class="cg-card cg-reveal" style="padding: 26px; text-align: center;"><span aria-hidden="true" style="width: 46px; height: 46px; margin: 0 auto 12px; border-radius: 50%; background: var(--card2); box-shadow: 0 2px 10px rgba(0,0,0,.06); display: flex; align-items: center; justify-content: center; color: var(--leaf);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"></path><path d="M12 13c-3 0-5-2-5-5 3 0 5 2 5 5zM12 10c0-3 2-5 5-5 0 3-2 5-5 5z"></path></svg></span><h3 style="margin: 0 0 8px; font-size: 18px; font-weight: 600; color: var(--head);">{{t.imp4}}</h3><p style="margin: 0; color: var(--text2); font-size: 15px;">{{t.imp4Text}}</p></div>
 </div>
 <div class="cg-reveal" style="background: linear-gradient(97deg, #26448F 0%, #3A6FE5 100%); color: #FFFFFF; padding: 28px 30px 32px; border-radius: 12px; display: flex; flex-direction: column; gap: 22px;">
 <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px;"><p style="margin: 0; font-weight: 600; font-size: 20px;">{{t.resTitle}}</p><p style="margin: 0; font-size: 14px; color: #DCE6FF;">{{t.resNote}}</p></div>
@@ -306,7 +386,7 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 <div><span aria-hidden="true" style="width: 44px; height: 44px; margin: 0 auto 10px; border-radius: 50%; background: rgba(255,255,255,.16); display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"></circle><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"></path><path d="M16 4.5a3 3 0 0 1 0 6M18 14c2 .8 3 2.6 3 6"></path></svg></span><p style="margin: 0; min-height: 42px; display: flex; align-items: center; justify-content: center;"><span style="padding: 4px 14px; border-radius: 999px; background: rgba(255,255,255,.16); border: 1px dashed rgba(255,255,255,.55); font-size: 14px; font-weight: 600;">{{t.soon}}</span></p><p style="margin: 4px 0 0; font-size: 14px; color: #DCE6FF;">{{t.res1}}</p></div>
 <div><span aria-hidden="true" style="width: 44px; height: 44px; margin: 0 auto 10px; border-radius: 50%; background: rgba(255,255,255,.16); display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg></span><p style="margin: 0; min-height: 42px; display: flex; align-items: center; justify-content: center;"><span style="padding: 4px 14px; border-radius: 999px; background: rgba(255,255,255,.16); border: 1px dashed rgba(255,255,255,.55); font-size: 14px; font-weight: 600;">{{t.soon}}</span></p><p style="margin: 4px 0 0; font-size: 14px; color: #DCE6FF;">{{t.res2}}</p></div>
 <div><span aria-hidden="true" style="width: 44px; height: 44px; margin: 0 auto 10px; border-radius: 50%; background: rgba(255,255,255,.16); display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg></span><p style="margin: 0; min-height: 42px; display: flex; align-items: center; justify-content: center;"><span style="padding: 4px 14px; border-radius: 999px; background: rgba(255,255,255,.16); border: 1px dashed rgba(255,255,255,.55); font-size: 14px; font-weight: 600;">{{t.soon}}</span></p><p style="margin: 4px 0 0; font-size: 14px; color: #DCE6FF;">{{t.res3}}</p></div>
-<div><span aria-hidden="true" style="width: 44px; height: 44px; margin: 0 auto 10px; border-radius: 50%; background: rgba(255,255,255,.16); display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="4"></rect><circle cx="8.5" cy="12" r="1.6"></circle><circle cx="15.5" cy="12" r="1.6"></circle></svg></span><p style="margin: 0; min-height: 42px; font-weight: 700; font-size: 34px; line-height: 42px;">12</p><p style="margin: 4px 0 0; font-size: 14px; color: #DCE6FF;">{{t.res4}}</p></div>
+<div><span aria-hidden="true" style="width: 44px; height: 44px; margin: 0 auto 10px; border-radius: 50%; background: rgba(255,255,255,.16); display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="2"></rect><path d="M9 8V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"></path></svg></span><p style="margin: 0; min-height: 42px; font-weight: 700; font-size: 34px; line-height: 42px;">1</p><p style="margin: 4px 0 0; font-size: 14px; color: #DCE6FF;">{{t.res4}}</p></div>
 </div>
 </div>
 <div aria-label="{{t.builtLabel}}" class="cg-reveal" style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: center;">
@@ -319,33 +399,6 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 <li class="cg-chip">Meta Quest 3</li>
 </ul>
 </div>
-</div>
-</section>
-
-<section id="simple" style="background: var(--bg-alt); scroll-margin-top: 66px;">
-<div class="cg-wrap" style="padding-top: 72px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 32px;">
-<h2 class="cg-h2 cg-reveal">{{t.simLabel}}</h2>
-<div class="cg-card cg-reveal" style="background: var(--card2); padding: 32px; display: flex; flex-wrap: wrap; gap: 32px; align-items: center;">
-<div style="flex: 0 1 240px; display: flex; justify-content: center;"><span class="cg-pill" style="padding: 22px 30px; border-radius: 999px;"><img src="./assets/af2899e01686dd56cd748bf53b9bb198.png" alt="CropGuard" style="width: 170px; height: auto; display: block;"></span></div>
-<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
-<h3 style="margin: 0; font-size: 21px; font-weight: 600; color: var(--blue);">{{t.simTitle}}</h3>
-<p style="margin: 0; color: var(--text2);">{{t.simText}}</p>
-<a href="https://project-simple.eu/" onClick="{{click}}" onMouseEnter="{{hover}}" style="font-weight: 700; color: var(--text); align-self: flex-start;">[{{t.simVisit}}]</a>
-</div>
-</div>
-<h3 class="cg-reveal" style="margin: 8px 0 0; font-size: 22px; font-weight: 600; color: var(--head);">{{t.coFunded}}</h3>
-<ul class="cg-g2" style="margin: 0; padding: 0; list-style: none; display: grid; gap: 16px;">
-<li class="cg-card cg-reveal" style="background: var(--card2); padding: 22px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px;"><span class="cg-logo-pill" style="max-width: 320px;"><img src="./assets/partners/eu-cofunded.png" alt="Co-funded by the European Union logo"></span><p style="margin: 10px 0 0; font-weight: 600; font-size: 17px; color: var(--blue);">European Union</p></li>
-<li class="cg-card cg-reveal" style="background: var(--card2); padding: 22px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px;"><span class="cg-logo-pill" style="max-width: 320px;"><img src="./assets/partners/global-gateway.png" alt="Global Gateway logo"></span><p style="margin: 10px 0 0; font-weight: 600; font-size: 17px; color: var(--blue);">Global Gateway</p></li>
-</ul>
-<h3 class="cg-reveal" style="margin: 8px 0 0; font-size: 22px; font-weight: 600; color: var(--head);">{{t.partners}}</h3>
-<ul class="cg-g3" style="margin: 0; padding: 0; list-style: none; display: grid; gap: 16px;">
-<li class="cg-card cg-reveal" style="background: var(--card2); padding: 22px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px;"><span class="cg-logo-pill"><img src="./assets/partners/ird.png" alt="IRD logo"></span><p style="margin: 10px 0 0; font-weight: 600; font-size: 17px; color: var(--blue);">IRD</p><p style="margin: 4px 0 0; color: var(--text2); font-size: 14px;">{{t.pIRD}}</p></li>
-<li class="cg-card cg-reveal" style="background: var(--card2); padding: 22px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px;"><span class="cg-logo-pill"><img src="./assets/partners/cadt.png" alt="CADT logo"></span><p style="margin: 10px 0 0; font-weight: 600; font-size: 17px; color: var(--blue);">CADT</p><p style="margin: 4px 0 0; color: var(--text2); font-size: 14px;">{{t.pCADT}}</p></li>
-<li class="cg-card cg-reveal" style="background: var(--card2); padding: 22px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px;"><span class="cg-logo-pill"><img src="./assets/partners/ctu.png" alt="CTU logo"></span><p style="margin: 10px 0 0; font-weight: 600; font-size: 17px; color: var(--blue);">CTU</p><p style="margin: 4px 0 0; color: var(--text2); font-size: 14px;">{{t.pCTU}}</p></li>
-<li class="cg-card cg-reveal" style="background: var(--card2); padding: 22px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px;"><span class="cg-logo-pill"><img src="./assets/partners/nstda.png" alt="NSTDA logo"></span><p style="margin: 10px 0 0; font-weight: 600; font-size: 17px; color: var(--blue);">NSTDA</p><p style="margin: 4px 0 0; color: var(--text2); font-size: 14px;">{{t.pNSTDA}}</p></li>
-<li class="cg-card cg-reveal" style="background: var(--card2); padding: 22px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px;"><span class="cg-logo-pill"><img src="./assets/partners/bedev.png" alt="BeDev Consulting logo"></span><p style="margin: 10px 0 0; font-weight: 600; font-size: 17px; color: var(--blue);">BeDev Consulting</p><p style="margin: 4px 0 0; color: var(--text2); font-size: 14px;">{{t.pBeDev}}</p></li>
-</ul>
 </div>
 </section>
 
@@ -375,13 +428,19 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 </div>
 </footer>
 
+<sc-if value="{{playing}}" hint-placeholder-val="{{false}}">
+<div class="cg-modal" role="dialog" aria-modal="true" aria-label="{{vidKicker}} · {{vidTitle}}" onClick="{{closeBackdrop}}">
+<div class="cg-modal-box">
+<div class="cg-modal-head"><div style="min-width: 0;"><p class="cg-modal-kicker">{{vidKicker}}</p><p class="cg-modal-title">{{vidTitle}}</p></div><button type="button" class="cg-modal-close" onClick="{{closeVid}}" aria-label="{{t.closeVideo}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<div class="cg-modal-frame"><iframe src="{{vidSrc}}" title="{{vidKicker}} · {{vidTitle}}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+</div>
+</div>
+</sc-if>
 <nav class="cg-dock" aria-label="{{t.sectionsLabel}}">
 <div class="cg-navlinks">
-<a href="#problem" onClick="{{click}}" onMouseEnter="{{hover}}">{{t.navProblem}}</a>
-<a href="#universes" onClick="{{click}}" onMouseEnter="{{hover}}">{{t.navUniverses}}</a>
-<a href="#session" onClick="{{click}}" onMouseEnter="{{hover}}">{{t.navHow}}</a>
-<a href="#impact" onClick="{{click}}" onMouseEnter="{{hover}}">{{t.navImpact}}</a>
-<a href="#simple" onClick="{{click}}" onMouseEnter="{{hover}}">SIMPLE</a>
+<a href="#background" data-nav="background" onClick="{{click}}" onMouseEnter="{{hover}}">{{t.navBackground}}</a>
+<a href="#problem" data-nav="problem" onClick="{{click}}" onMouseEnter="{{hover}}">{{t.navProblem}}</a>
+<a href="#universes" data-nav="solution" onClick="{{click}}" onMouseEnter="{{hover}}">{{t.navSolution}}</a>
 </div>
 </nav>
 </div>
@@ -389,10 +448,9 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":6300}}'>
 var I18N = {
   en: {
+    "navBackground": "Background",
     "navProblem": "Problem",
-    "navUniverses": "Universes",
-    "navHow": "How it works",
-    "navImpact": "Impact",
+    "navSolution": "Solution",
     "watchDemo": "Watch demo",
     "heroBadge": "A SIMPLE Virtual Universe · Cambodia",
     "heroLead": "A collaborative VR experience where Cambodian students explore a 3D rice field, identify pests and natural enemies, and run experiments impossible in a classroom.",
@@ -402,17 +460,19 @@ var I18N = {
     "chipGrades": "Grade 8 & 10",
     "chipTeam": "Team-based",
     "stat1": "of Cambodia's cultivated land is used for rice",
-    "stat2": "of the national calorie supply comes from rice",
+    "stat2": "of daily calorie intake comes from rice",
     "stat3": "rice field organisms modelled in 3D",
     "stat4": "virtual universes, from identification to biological control",
-    "statSource": "Rice figures: IRRI / Feed the Future IPM Innovation Lab, “Rice IPM for Cambodia”.",
+    "refsTitle": "References",
+    "refLabel": "Reference",
     "probLabel": "The problem",
     "probTitle": "Not every bug in the rice field is an enemy.",
-    "probLead": "Farmers rank insect pests as the top cause of rice yield loss. Without knowing which animals are harmful and which are helpful, broad pesticide spraying kills the natural enemies that keep pests under control, and outbreaks get worse.",
+    "probLead1": "Farmers rank insect pests among the top causes of rice yield loss.",
+    "probLead2": "Without knowing which animals are harmful and which are helpful, broad pesticide spraying kills the natural enemies that keep pests under control.",
     "fieldTitle": "In the field",
-    "field1": "Pesticide misuse is widespread, often mixing several products by intuition.",
-    "field2": "Insecticides significantly reduce populations of natural enemies.",
-    "field3": "Researchers call for education on pest damage and the role of natural enemies.",
+    "field1": "99% of farmers rely on chemical insecticides, and 63% mix them.",
+    "field2": "Insecticides significantly reduce natural enemy populations.",
+    "field3": "77% of farmers mistake the lady beetle for a pest; researchers call for training on beneficial insects.",
     "classTitle": "In the classroom",
     "class1": "Grade 8 and Grade 10 lessons on rice ecosystems are theory-based.",
     "class2": "Students memorise names from small pictures and never see damage happen.",
@@ -427,10 +487,26 @@ var I18N = {
     "vu3Title": "Natural Enemies",
     "vu3Text": "Choose from 10 predators and 2 parasitoids. Pick the right natural enemy for the target pest and watch the damaged plant recover.",
     "sessLabel": "How a session works",
+    "sessKicker": "Team setup · 1 headset · 3–5 players",
     "sessTitle": "One headset. A whole team learning.",
     "sessLead": "Most educational VR is one student per headset. In CropGuard, the VR player explores while teammates look up evidence and record answers, so the whole class stays engaged and practises communication.",
     "labTitle": "M2L2 · Mobile Metaverse Learning Lab",
     "labText": "Headsets and a local server packed for the classroom. No internet needed, and teachers without a technical background can run the session.",
+    "labBadge": "Works offline",
+    "rotateLabel": "Next round: roles rotate",
+    "roleTag1": "P1 · Headset",
+    "roleTag2": "P2 · Support",
+    "roleTag3": "P3 · Support",
+    "stepReport": "report",
+    "stepVerify": "verify",
+    "skillsLabel": "Skills",
+    "skill1a": "Explore",
+    "skill1b": "Report",
+    "skill2a": "Research",
+    "skill2b": "Verify",
+    "skill3a": "Record",
+    "skill3b": "Organize",
+    "boardLegend": "Solid arrows: one round · Dashed loop: roles rotate after each round",
     "role1": "VR Player",
     "role1Text": "Explores the virtual rice field, completes tasks and reports findings to the team.",
     "role2": "Manual Reader",
@@ -453,7 +529,7 @@ var I18N = {
     "res1": "students reached",
     "res2": "sessions and demo events",
     "res3": "pre/post test improvement",
-    "res4": "Meta Quest 3 headsets in the lab",
+    "res4": "M2L2 (Mobile Metaverse Learning Lab) per classroom",
     "soon": "Coming soon",
     "n1": "1",
     "n2": "2",
@@ -462,6 +538,7 @@ var I18N = {
     "sectionsLabel": "Page sections",
     "nextVideo": "Next video",
     "playVideo": "Play video",
+    "closeVideo": "Close video",
     "vidOverview": "OVERVIEW",
     "vid0Title": "Learning rice field ecology through VR",
     "vid1Text": "An introduction to CropGuard and the SIMPLE project.",
@@ -487,11 +564,11 @@ var I18N = {
     "simProject": "SIMPLE project",
     "copyright": "© 2026 CropGuard · CADT VR Team",
     "cofunded": "Co-funded by the European Union",
-    "pIRD": "French National Research Institute for Sustainable Development",
-    "pCADT": "Cambodia Academy of Digital Technology",
-    "pCTU": "Can Tho University, Vietnam",
-    "pNSTDA": "National Science and Technology Development Agency, Thailand",
-    "pBeDev": "Lao PDR",
+    "pEU": "The European Union co-funds the SIMPLE project. Its support helps bring immersive, science-based learning tools to classrooms in Southeast Asia, so students can explore climate and biodiversity topics hands-on.",
+    "pGG": "Global Gateway is the EU’s strategy for investing in sustainable connections worldwide, across digital, climate, energy, health and education. SIMPLE is part of this effort to strengthen digital education and environmental awareness in partner countries.",
+    "pIRD": "IRD (Institut de Recherche pour le Développement) is a French public research institute that works with partners in the Global South on sustainable development. It drives SIMPLE’s scientific and technical approach, including the GAMA modelling platform, which links scientific simulations with VR experiences.",
+    "pCADT": "CADT (Cambodia Academy of Digital Technology) is Cambodia’s public institution for digital education and research. It is the Cambodian partner that designs and develops CropGuard, the VR rice-field game, and tests it with local students and teachers.",
+    "pCIRAD": "CIRAD is the French agricultural research and cooperation organization for sustainable development in tropical regions. In Cambodia, it brings expertise on rice ecosystems and agroecology to keep the pests, natural enemies and crop damage shown in the game scientifically accurate.",
     "heroPest": "Pest",
     "heroOr": " or ",
     "heroProtector": "protector?",
@@ -509,17 +586,16 @@ var I18N = {
     "factsLabel": "Key facts",
     "heroAlt": "Inside CropGuard: a student's view between rice plants in the virtual field",
     "numbersLabel": "Key numbers",
-    "vu1Alt": "Virtual Universe 1: exploring the rice field",
-    "vu2Alt": "Damage stages of rice plants for each pest across three growth stages",
-    "vu3Alt": "Virtual Universe 3 round selection screen",
+    "vu1Alt": "Virtual Universe 1: a student's view with VR controllers in the rice field, surrounded by organisms to identify",
+    "vu2Alt": "Virtual Universe 2: rice plants showing pest damage in the field",
+    "vu3Alt": "Virtual Universe 3: a damaged rice plant with pests and a field rat nearby",
     "demoPlay": "Play demo video (link to be added)",
     "builtLabel": "Built with"
   },
   km: {
+    "navBackground": "ផ្ទៃខាងក្រោយ",
     "navProblem": "បញ្ហា",
-    "navUniverses": "សកលលោក",
-    "navHow": "របៀបដំណើរការ",
-    "navImpact": "ផលប៉ះពាល់",
+    "navSolution": "ដំណោះស្រាយ",
     "watchDemo": "មើលការបង្ហាញ",
     "heroBadge": "សកលលោកនិម្មិត SIMPLE · កម្ពុជា",
     "heroLead": "បទពិសោធន៍ VR បែបសហការ ដែលសិស្សកម្ពុជាស្វែងយល់ពីវាលស្រែ 3D កំណត់អត្តសញ្ញាណសត្វចង្រៃ និងសត្រូវធម្មជាតិ ហើយធ្វើពិសោធន៍ដែលមិនអាចធ្វើបាននៅក្នុងថ្នាក់រៀន។",
@@ -529,17 +605,19 @@ var I18N = {
     "chipGrades": "ថ្នាក់ទី៨ និងទី១០",
     "chipTeam": "ធ្វើការជាក្រុម",
     "stat1": "នៃដីដាំដុះនៅកម្ពុជា ត្រូវបានប្រើសម្រាប់ដាំស្រូវ",
-    "stat2": "នៃការផ្គត់ផ្គង់កាឡូរីជាតិ បានមកពីអង្ករ",
+    "stat2": "នៃកាឡូរីដែលទទួលទានប្រចាំថ្ងៃ បានមកពីអង្ករ",
     "stat3": "សារពាង្គកាយក្នុងវាលស្រែ ដែលបានបង្កើតជាម៉ូដែល 3D",
     "stat4": "សកលលោកនិម្មិត ចាប់ពីការកំណត់អត្តសញ្ញាណ ដល់ការគ្រប់គ្រងបែបជីវសាស្ត្រ",
-    "statSource": "តួលេខស្រូវ៖ IRRI / Feed the Future IPM Innovation Lab, “Rice IPM for Cambodia”។",
+    "refsTitle": "ឯកសារយោង",
+    "refLabel": "ឯកសារយោង",
     "probLabel": "បញ្ហា",
     "probTitle": "មិនមែនសត្វល្អិតគ្រប់ប្រភេទក្នុងវាលស្រែ សុទ្ធតែជាសត្រូវនោះទេ។",
-    "probLead": "កសិករចាត់ទុកសត្វល្អិតចង្រៃ ជាមូលហេតុចម្បងនៃការបាត់បង់ទិន្នផលស្រូវ។ បើមិនដឹងថាសត្វណាបង្កគ្រោះថ្នាក់ និងសត្វណាមានប្រយោជន៍ ការបាញ់ថ្នាំសម្លាប់សត្វល្អិតដោយមិនរើសមុខ នឹងសម្លាប់សត្រូវធម្មជាតិដែលជួយគ្រប់គ្រងសត្វចង្រៃ ហើយធ្វើឱ្យការរីករាលដាលកាន់តែធ្ងន់ធ្ងរ។",
+    "probLead1": "កសិករចាត់ទុកសត្វល្អិតចង្រៃ ជាមូលហេតុចម្បងមួយនៃការបាត់បង់ទិន្នផលស្រូវ។",
+    "probLead2": "បើមិនដឹងថាសត្វណាបង្កគ្រោះថ្នាក់ និងសត្វណាមានប្រយោជន៍ ការបាញ់ថ្នាំសម្លាប់សត្វល្អិតដោយមិនរើសមុខ នឹងសម្លាប់សត្រូវធម្មជាតិដែលជួយគ្រប់គ្រងសត្វចង្រៃ។",
     "fieldTitle": "នៅក្នុងវាលស្រែ",
-    "field1": "ការប្រើថ្នាំកសិកម្មខុសបច្ចេកទេសមានការរីករាលដាល ជារឿយៗលាយផលិតផលច្រើនមុខតាមការស្មាន។",
+    "field1": "កសិករ ៩៩% ពឹងផ្អែកលើថ្នាំសម្លាប់សត្វល្អិតគីមី ហើយ ៦៣% លាយថ្នាំទាំងនោះចូលគ្នា។",
     "field2": "ថ្នាំសម្លាប់សត្វល្អិតកាត់បន្ថយចំនួនសត្រូវធម្មជាតិយ៉ាងខ្លាំង។",
-    "field3": "អ្នកស្រាវជ្រាវអំពាវនាវឱ្យមានការអប់រំ អំពីការខូចខាតដោយសត្វចង្រៃ និងតួនាទីរបស់សត្រូវធម្មជាតិ។",
+    "field3": "កសិករ ៧៧% យល់ច្រឡំថាអណ្តើកមាស (lady beetle) ជាសត្វចង្រៃ។ អ្នកស្រាវជ្រាវអំពាវនាវឱ្យមានការបណ្តុះបណ្តាលអំពីសត្វល្អិតមានប្រយោជន៍។",
     "classTitle": "នៅក្នុងថ្នាក់រៀន",
     "class1": "មេរៀនថ្នាក់ទី៨ និងទី១០ អំពីប្រព័ន្ធអេកូឡូស៊ីវាលស្រែ ផ្អែកលើទ្រឹស្តីតែប៉ុណ្ណោះ។",
     "class2": "សិស្សទន្ទេញឈ្មោះពីរូបភាពតូចៗ ហើយមិនដែលឃើញការខូចខាតកើតឡើងផ្ទាល់ភ្នែកទេ។",
@@ -554,10 +632,26 @@ var I18N = {
     "vu3Title": "សត្រូវធម្មជាតិ",
     "vu3Text": "ជ្រើសរើសពីសត្វស៊ីសត្វ ១០ និងប៉ារ៉ាស៊ីតូអ៊ីត ២។ ជ្រើសសត្រូវធម្មជាតិឱ្យត្រូវនឹងសត្វចង្រៃគោលដៅ ហើយមើលដើមស្រូវដែលខូចខាតងើបឡើងវិញ។",
     "sessLabel": "របៀបដំណើរការវគ្គសិក្សា",
+    "sessKicker": "ការរៀបចំក្រុម · កាស ១ · អ្នកលេង ៣–៥ នាក់",
     "sessTitle": "កាសមួយ។ ក្រុមទាំងមូលរៀនជាមួយគ្នា។",
     "sessLead": "VR អប់រំភាគច្រើន គឺសិស្សម្នាក់ប្រើកាសមួយ។ នៅក្នុង CropGuard អ្នកលេង VR ស្វែងយល់ ខណៈដែលមិត្តរួមក្រុមស្វែងរកភស្តុតាង និងកត់ត្រាចម្លើយ ដូច្នេះថ្នាក់ទាំងមូលចូលរួមយ៉ាងសកម្ម និងហ្វឹកហាត់ការប្រាស្រ័យទាក់ទង។",
     "labTitle": "M2L2 · មន្ទីរពិសោធន៍សិក្សា Metaverse ចល័ត",
     "labText": "កាស និងម៉ាស៊ីនមេមូលដ្ឋាន ដែលវេចខ្ចប់សម្រាប់ថ្នាក់រៀន។ មិនត្រូវការអ៊ីនធឺណិត ហើយគ្រូដែលគ្មានចំណេះដឹងបច្ចេកទេស ក៏អាចដំណើរការវគ្គសិក្សាបានដែរ។",
+    "labBadge": "ដំណើរការដោយគ្មានអ៊ីនធឺណិត",
+    "rotateLabel": "ជុំបន្ទាប់៖ ប្តូរតួនាទី",
+    "roleTag1": "P1 · កាស",
+    "roleTag2": "P2 · ជំនួយ",
+    "roleTag3": "P3 · ជំនួយ",
+    "stepReport": "រាយការណ៍",
+    "stepVerify": "ផ្ទៀងផ្ទាត់",
+    "skillsLabel": "ជំនាញ",
+    "skill1a": "ស្វែងយល់",
+    "skill1b": "រាយការណ៍",
+    "skill2a": "ស្រាវជ្រាវ",
+    "skill2b": "ផ្ទៀងផ្ទាត់",
+    "skill3a": "កត់ត្រា",
+    "skill3b": "រៀបចំ",
+    "boardLegend": "ព្រួញដិត៖ មួយជុំ · ខ្សែដាច់ៗ៖ ប្តូរតួនាទីបន្ទាប់ពីជុំនីមួយៗ",
     "role1": "អ្នកលេង VR",
     "role1Text": "ស្វែងយល់វាលស្រែនិម្មិត បំពេញកិច្ចការ និងរាយការណ៍លទ្ធផលទៅក្រុម។",
     "role2": "អ្នកអានសៀវភៅណែនាំ",
@@ -580,7 +674,7 @@ var I18N = {
     "res1": "សិស្សដែលបានចូលរួម",
     "res2": "វគ្គសិក្សា និងព្រឹត្តិការណ៍បង្ហាញ",
     "res3": "ការកើនឡើងពិន្ទុតេស្តមុន/ក្រោយ",
-    "res4": "កាស Meta Quest 3 ក្នុងមន្ទីរពិសោធន៍",
+    "res4": "M2L2 (មន្ទីរពិសោធន៍សិក្សាមេតាវឺសចល័ត) ក្នុងមួយថ្នាក់រៀន",
     "soon": "មកដល់ឆាប់ៗនេះ",
     "n1": "១",
     "n2": "២",
@@ -589,6 +683,7 @@ var I18N = {
     "sectionsLabel": "ផ្នែកនៃទំព័រ",
     "nextVideo": "វីដេអូបន្ទាប់",
     "playVideo": "ចាក់វីដេអូ",
+    "closeVideo": "បិទវីដេអូ",
     "vidOverview": "ទិដ្ឋភាពទូទៅ",
     "vid0Title": "រៀនអំពីប្រព័ន្ធអេកូឡូស៊ីវាលស្រែតាមរយៈ VR",
     "vid1Text": "សេចក្តីណែនាំអំពី CropGuard និងគម្រោង SIMPLE។",
@@ -614,11 +709,11 @@ var I18N = {
     "simProject": "គម្រោង SIMPLE",
     "copyright": "© 2026 CropGuard · ក្រុម VR របស់ CADT",
     "cofunded": "សហការផ្តល់មូលនិធិដោយសហភាពអឺរ៉ុប",
-    "pIRD": "វិទ្យាស្ថានស្រាវជ្រាវជាតិបារាំង សម្រាប់ការអភិវឌ្ឍប្រកបដោយនិរន្តរភាព",
-    "pCADT": "បណ្ឌិត្យសភាបច្ចេកវិទ្យាឌីជីថលកម្ពុជា",
-    "pCTU": "សាកលវិទ្យាល័យ Can Tho ប្រទេសវៀតណាម",
-    "pNSTDA": "ទីភ្នាក់ងារជាតិអភិវឌ្ឍន៍វិទ្យាសាស្ត្រ និងបច្ចេកវិទ្យា ប្រទេសថៃ",
-    "pBeDev": "សាធារណរដ្ឋប្រជាធិបតេយ្យប្រជាមានិតឡាវ",
+    "pEU": "សហភាពអឺរ៉ុបសហការផ្តល់មូលនិធិដល់គម្រោង SIMPLE។ ការគាំទ្រនេះជួយនាំយកឧបករណ៍សិក្សាបែបជ្រមុជ ដែលផ្អែកលើវិទ្យាសាស្ត្រ ទៅកាន់ថ្នាក់រៀននៅអាស៊ីអាគ្នេយ៍ ដើម្បីឱ្យសិស្សអាចស្វែងយល់ពីប្រធានបទអាកាសធាតុ និងជីវចម្រុះតាមរយៈការអនុវត្តផ្ទាល់។",
+    "pGG": "Global Gateway គឺជាយុទ្ធសាស្ត្ររបស់សហភាពអឺរ៉ុប សម្រាប់វិនិយោគលើការតភ្ជាប់ប្រកបដោយនិរន្តរភាពទូទាំងពិភពលោក ក្នុងវិស័យឌីជីថល អាកាសធាតុ ថាមពល សុខាភិបាល និងអប់រំ។ SIMPLE ជាផ្នែកមួយនៃកិច្ចខិតខំនេះ ដើម្បីពង្រឹងការអប់រំឌីជីថល និងការយល់ដឹងផ្នែកបរិស្ថាននៅក្នុងប្រទេសដៃគូ។",
+    "pIRD": "IRD (Institut de Recherche pour le Développement) គឺជាវិទ្យាស្ថានស្រាវជ្រាវសាធារណៈរបស់បារាំង ដែលធ្វើការជាមួយដៃគូនៅក្នុងប្រទេសកំពុងអភិវឌ្ឍ លើការអភិវឌ្ឍប្រកបដោយនិរន្តរភាព។ IRD ដឹកនាំវិធីសាស្ត្រវិទ្យាសាស្ត្រ និងបច្ចេកទេសរបស់ SIMPLE រួមទាំងវេទិកាគំរូ GAMA ដែលភ្ជាប់ការក្លែងធ្វើបែបវិទ្យាសាស្ត្រជាមួយបទពិសោធន៍ VR។",
+    "pCADT": "CADT (បណ្ឌិត្យសភាបច្ចេកវិទ្យាឌីជីថលកម្ពុជា) គឺជាស្ថាប័នសាធារណៈរបស់កម្ពុជាសម្រាប់ការអប់រំ និងស្រាវជ្រាវផ្នែកឌីជីថល។ CADT ជាដៃគូកម្ពុជាដែលរចនា និងអភិវឌ្ឍ CropGuard ដែលជាហ្គេម VR វាលស្រែ ហើយសាកល្បងវាជាមួយសិស្ស និងគ្រូក្នុងស្រុក។",
+    "pCIRAD": "CIRAD គឺជាអង្គការស្រាវជ្រាវ និងកិច្ចសហប្រតិបត្តិការកសិកម្មរបស់បារាំង សម្រាប់ការអភិវឌ្ឍប្រកបដោយនិរន្តរភាពនៅតំបន់ត្រូពិច។ នៅកម្ពុជា CIRAD នាំមកនូវជំនាញលើប្រព័ន្ធអេកូឡូស៊ីវាលស្រែ និងកសិអេកូឡូស៊ី ដើម្បីធានាថាសត្វចង្រៃ សត្រូវធម្មជាតិ និងការខូចខាតដំណាំដែលបង្ហាញក្នុងហ្គេម មានភាពត្រឹមត្រូវតាមវិទ្យាសាស្ត្រ។",
     "heroPest": "សត្វចង្រៃ",
     "heroOr": " ឬ ",
     "heroProtector": "អ្នកការពារ?",
@@ -636,9 +731,9 @@ var I18N = {
     "factsLabel": "ព័ត៌មានសំខាន់ៗ",
     "heroAlt": "ក្នុង CropGuard៖ ទិដ្ឋភាពរបស់សិស្សនៅចន្លោះដើមស្រូវ ក្នុងវាលស្រែនិម្មិត",
     "numbersLabel": "តួលេខសំខាន់ៗ",
-    "vu1Alt": "សកលលោកនិម្មិតទី១៖ ការស្វែងយល់វាលស្រែ",
-    "vu2Alt": "ដំណាក់កាលខូចខាតរបស់ដើមស្រូវ សម្រាប់សត្វចង្រៃនីមួយៗ ក្នុងដំណាក់កាលលូតលាស់ទាំងបី",
-    "vu3Alt": "អេក្រង់ជ្រើសរើសជុំ នៃសកលលោកនិម្មិតទី៣",
+    "vu1Alt": "សកលលោកនិម្មិតទី១៖ ទិដ្ឋភាពរបស់សិស្សជាមួយឧបករណ៍បញ្ជា VR ក្នុងវាលស្រែ",
+    "vu2Alt": "សកលលោកនិម្មិតទី២៖ ដើមស្រូវដែលរងការខូចខាតពីសត្វចង្រៃក្នុងវាលស្រែ",
+    "vu3Alt": "សកលលោកនិម្មិតទី៣៖ ដើមស្រូវដែលរងការខូចខាត ជាមួយសត្វចង្រៃ និងកណ្ដុរនៅក្បែរ",
     "demoPlay": "ចាក់វីដេអូបង្ហាញ (តំណនឹងបន្ថែមនៅពេលក្រោយ)",
     "builtLabel": "បង្កើតឡើងដោយប្រើ"
   }
@@ -735,6 +830,13 @@ class Component extends DCLogic {
         self.setState({ lang: next });
       },
       playVid: function () { self.cardVid(self.state.vid); },
+      // "Watch demo" buttons open the overview video in the popup instead of scrolling to #demo.
+      openDemo: function (e) { if (e && e.preventDefault) e.preventDefault(); self.openDemo(); },
+      closeVid: function () { self.closeVid(); },
+      closeBackdrop: function (e) { if (e && e.target === e.currentTarget) self.closeVid(); },
+      playing: !!this.state.playing,
+      vidSrc: this.state.playing ? this.src(v) : 'about:blank',
+      vidKicker: v === 0 ? t.vidOverview : 'VU ' + t['n' + v] + ' / ' + t.n3,
       hasEmail: !!CONTACT_EMAIL,
       noEmail: !CONTACT_EMAIL,
       email: CONTACT_EMAIL,
@@ -757,8 +859,6 @@ class Component extends DCLogic {
         vals['pickVid' + i] = function () { self.pickVid(i); };
         vals['cardVid' + i] = function () { self.cardVid(i); };
       })(i);
-      vals['play' + i] = this.state.playing && v === i;
-      vals['vidSrc' + i] = this.src(i);
       vals['vidChip' + i] = VIDEOS[i] ? 'YouTube' : t.soon;
       vals['vidChipCls' + i] = VIDEOS[i] ? 'is-live' : '';
       vals['vidSlot' + i] = 'cg-slot-' + ((i - v + n) % n);
@@ -783,7 +883,72 @@ class Component extends DCLogic {
     this.tone(i > this.state.vid ? 660 : 520, i > this.state.vid ? 880 : 440, 0.08, 'triangle', 0.08, 0);
     this.setState({ vid: i, playing: false });
   }
+  openDemo() {
+    this.audio();
+    this.tone(520, 880, 0.09, 'triangle', 0.1, 0);
+    this.setState({ vid: 0, playing: true });
+  }
+  closeVid() {
+    if (!this.state.playing) return;
+    this.tone(660, 440, 0.08, 'triangle', 0.08, 0);
+    this.setState({ playing: false });
+  }
 }
+</script>
+<script>
+// Keep --cg-head equal to the sticky header's real height (it wraps on narrow screens),
+// so each section fills exactly one screen below it.
+(function () {
+  var seen = null;
+  function sync() {
+    var h = document.querySelector('.cg-header');
+    if (!h) return;
+    document.documentElement.style.setProperty('--cg-head', h.offsetHeight + 'px');
+    if (h !== seen && window.ResizeObserver) { seen = h; new ResizeObserver(sync).observe(h); }
+  }
+  window.addEventListener('resize', sync);
+  window.addEventListener('load', sync);
+  var tries = 0, timer = setInterval(function () { sync(); if (seen || ++tries > 50) clearInterval(timer); }, 100);
+})();
+
+// Video popup: Esc closes it, focus moves to its close button on open and back to the play button on close.
+(function () {
+  var opener = null;
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var btn = document.querySelector('.cg-modal-close');
+    if (btn) btn.click();
+  });
+  new MutationObserver(function () {
+    var btn = document.querySelector('.cg-modal-close');
+    if (btn && !opener) {
+      opener = document.activeElement;
+      btn.focus();
+    } else if (!btn && opener) {
+      if (document.contains(opener)) opener.focus({ preventScroll: true });
+      opener = null;
+    }
+  }).observe(document.body, { childList: true, subtree: true });
+})();
+
+// Highlight the dock link (Background / Problem / Solution) for the group of sections in view.
+(function () {
+  function spy() {
+    var line = window.innerHeight * 0.4, group = '';
+    document.querySelectorAll('section[data-group]').forEach(function (s) {
+      if (s.getBoundingClientRect().top <= line) group = s.getAttribute('data-group');
+    });
+    document.querySelectorAll('.cg-navlinks a[data-nav]').forEach(function (a) {
+      var on = a.getAttribute('data-nav') === group;
+      a.classList.toggle('is-active', on);
+      if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('resize', spy);
+  window.addEventListener('load', spy);
+  setInterval(spy, 1000);
+})();
 </script>
 </body>
 </html>

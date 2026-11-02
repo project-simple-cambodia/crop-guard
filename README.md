@@ -8,9 +8,9 @@ CropGuard is a Virtual Universe developed by the CADT VR Team within the EU co-f
 
 ## The problem
 
-Rice is central to Cambodia: about 90% of cultivated land is used for rice, and rice supplies about 70% of the national calorie intake (source: IRRI / Feed the Future IPM Innovation Lab, "Rice IPM for Cambodia").
+Rice is central to Cambodia: rice paddy covers about 90% of cultivated land, and rice alone provides almost two-thirds of daily calorie intake (Kean, 2012).
 
-- **In the field:** Farmers rank insect pests as the top cause of rice yield loss. Pesticide misuse is widespread. Broad spraying also kills the natural enemies that keep pests under control, so outbreaks get worse.
+- **In the field:** Farmers rank insect pests among the top causes of rice yield loss (Dunn et al., 2023). 99% of farmers rely on chemical insecticides, and 63% mix them (Dunn et al., 2023). Insecticides significantly reduce natural enemy populations (Ngin et al., 2017), and 77% of farmers mistake the lady beetle for a pest; researchers call for training on beneficial insects (Dunn et al., 2023).
 - **In the classroom:** Grade 8 and Grade 10 lessons on rice ecosystems are theory-based. Students memorise names from small pictures and never see damage happen. Field trips are costly and seasonal, and real crop damage takes weeks to appear.
 
 ## The three Virtual Universes
@@ -56,13 +56,16 @@ SIMPLE (Sustainability Issues Multiverse for building Participatory Learning Env
 
 More information: <https://project-simple.eu/>
 
+### Co-funded by
+
+- **European Union** – co-funds the SIMPLE project, helping bring immersive, science-based learning tools to classrooms in Southeast Asia.
+- **Global Gateway** – the EU's strategy for investing in sustainable connections worldwide; SIMPLE is part of its effort to strengthen digital education and environmental awareness in partner countries.
+
 ### Partners
 
-- **IRD** – French National Research Institute for Sustainable Development
-- **CADT** – Cambodia Academy of Digital Technology
-- **CTU** – Can Tho University, Vietnam
-- **NSTDA** – National Science and Technology Development Agency, Thailand
-- **BeDev Consulting** – Lao PDR
+- **IRD** (Institut de Recherche pour le Développement) – French public research institute; drives SIMPLE's scientific and technical approach, including the GAMA modelling platform.
+- **CADT** (Cambodia Academy of Digital Technology) – designs and develops CropGuard and tests it with local students and teachers.
+- **CIRAD** – French agricultural research and cooperation organization; brings rice ecosystem and agroecology expertise so the game stays scientifically accurate.
 
 ## Languages
 
@@ -71,6 +74,12 @@ The project website is available in **English** and **Khmer (ភាសាខ្�
 ## Contact
 
 CADT VR Team – Cambodia Academy of Digital Technology, Phnom Penh, Cambodia
+
+## References
+
+- Dunn, L., Latty, T., Van Ogtrop, F. F., & Tan, D. K. Y. (2023). Cambodian rice farmers' knowledge, attitudes, and practices (KAPs) regarding insect pest management and pesticide use. *International Journal of Agricultural Sustainability, 21*(1), Article 2178804. <https://doi.org/10.1080/14735903.2023.2178804>
+- Kean, S. (2012). *The rice situation in Cambodia* (Technical Assistance Consultant's Report, TA 7495-REG). Asian Development Bank. <https://www.adb.org/sites/default/files/project-documents//43430-012-reg-tacr-01.pdf>
+- Ngin, C., Suon, S., Tanaka, T., Yamauchi, A., Kawakita, K., & Chiba, S. (2017). Impact of insecticide applications on arthropod predators and plant feeders in Cambodian rice fields. *Phytobiomes Journal, 1*(3), 128–137. <https://doi.org/10.1094/PBIOMES-01-17-0002-R>
 
 ---
 
