@@ -109,6 +109,15 @@ body{margin:0;background:#FFFFFF;overflow-x:clip}
 .cg-role-step small{font-size:11px;letter-spacing:.5px;white-space:nowrap}
 @media (max-width: 860px){.cg-roles{grid-template-columns:minmax(0,1fr)}.cg-role-step{flex-direction:row;gap:8px;padding:6px 0}.cg-role-arrow{transform:rotate(90deg)}.cg-board-loop{display:none}.cg-board-flow{gap:12px}}
 @media (max-width: 700px){.cg-board{padding:18px 16px}}
+.cg-tour-stop{display:none}
+html.cg-touring .cg-tour-play{display:none}
+html.cg-touring .cg-tour-stop{display:block}
+html.cg-touring .cg-tour-btn{background:var(--cyan);border-color:var(--cyan);color:#000000}
+.cg-tour-pill{position:fixed;left:50%;top:calc(var(--cg-head, 66px) + 12px);z-index:25;transform:translate(-50%,-8px);opacity:0;pointer-events:none;display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(25,27,31,.82);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#FFFFFF;font-size:13px;box-shadow:0 6px 20px rgba(0,0,0,.25);transition:opacity .3s,transform .3s;max-width:calc(100vw - 32px);white-space:nowrap}
+html.cg-touring .cg-tour-pill{opacity:1;transform:translate(-50%,0)}
+.cg-tour-dot{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:var(--cyan);animation:cgPulse 1.6s ease-in-out infinite}
+@keyframes cgPulse{0%,100%{opacity:1}50%{opacity:.3}}
+@media (max-width: 480px){.cg-tour-pill{font-size:12px;white-space:normal;text-align:center}}
 .cg-modal{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;background:rgba(5,7,10,.84);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:cgFade .25s ease}
 .cg-modal-box{width:min(1100px,100%,calc((100vh - 150px) * 16 / 9));display:flex;flex-direction:column;gap:12px;color:#FFFFFF;animation:cgPop .35s cubic-bezier(.2,.8,.2,1)}
 .cg-modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
@@ -168,6 +177,7 @@ html:has(.cg-modal){overflow:hidden}
 <button type="button" class="cg-icon-btn" onClick="{{toggleSound}}" aria-pressed="{{soundOn}}" aria-label="{{soundLabel}}" style="padding: 0;">
 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"></path><sc-if value="{{soundOn}}" hint-placeholder-val="{{true}}"><path d="M16.5 8.5a5 5 0 0 1 0 7"></path></sc-if><sc-if value="{{soundOff}}" hint-placeholder-val="{{false}}"><path d="M17 9l5 6M22 9l-5 6"></path></sc-if></svg>
 </button>
+<button type="button" class="cg-icon-btn cg-tour-btn" data-tour-toggle aria-pressed="false" aria-label="{{t.tourLabel}}" title="{{t.tourLabel}}" onMouseEnter="{{hover}}" style="padding: 0;"><svg class="cg-tour-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg><svg class="cg-tour-stop" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"></rect></svg></button>
 <a class="cg-btn" href="#demo" onClick="{{openDemo}}" onMouseEnter="{{hover}}" style="min-height: 42px; font-size: 15px;">{{t.watchDemo}} <span aria-hidden="true">→</span></a>
 </div>
 </nav>
@@ -438,6 +448,7 @@ html:has(.cg-modal){overflow:hidden}
 </div>
 </div>
 </sc-if>
+<div class="cg-tour-pill" aria-hidden="true"><span class="cg-tour-dot"></span>{{t.tourOn}}</div>
 <nav class="cg-dock" aria-label="{{t.sectionsLabel}}">
 <div class="cg-navlinks">
 <a href="#background" data-nav="background" onClick="{{click}}" onMouseEnter="{{hover}}">{{t.navBackground}}</a>
@@ -577,6 +588,8 @@ var I18N = {
     "soundOff": "Sound off",
     "soundOffLabel": "Turn sound effects off",
     "soundOnLabel": "Turn sound effects on",
+    "tourLabel": "Auto tour: scroll through the page slowly",
+    "tourOn": "Auto tour on · scroll, tap or press any key to stop",
     "langBtn": "ខ្មែរ",
     "langLabel": "ប្តូរទៅភាសាខ្មែរ (Switch to Khmer)",
     "homeLabel": "CropGuard home",
@@ -717,6 +730,8 @@ var I18N = {
     "soundOff": "សំឡេងបិទ",
     "soundOffLabel": "បិទបែបផែនសំឡេង",
     "soundOnLabel": "បើកបែបផែនសំឡេង",
+    "tourLabel": "ទស្សនាស្វ័យប្រវត្តិ៖ រំកិលទំព័រយឺតៗ",
+    "tourOn": "កំពុងទស្សនាស្វ័យប្រវត្តិ · រំកិល ចុច ឬវាយគ្រាប់ចុចណាមួយ ដើម្បីបញ្ឈប់",
     "langBtn": "EN",
     "langLabel": "Switch to English (ប្តូរទៅភាសាអង់គ្លេស)",
     "homeLabel": "ទំព័រដើម CropGuard",
@@ -922,6 +937,83 @@ class Component extends DCLogic {
       opener = null;
     }
   }).observe(document.body, { childList: true, subtree: true });
+})();
+
+// Auto tour: scroll the page slowly like an exhibition, pausing at the start of each section,
+// then loop back to the top. Any scroll, tap or key press from the visitor stops it.
+// Start it from the header button, or open the page with ?tour (e.g. for a kiosk screen).
+(function () {
+  var SPEED = 45;        // px per second
+  var HOLD = 3500;       // pause at each section start (ms)
+  var END_HOLD = 5000;   // pause at the bottom before returning to the top (ms)
+  var on = false, raf = 0, last = 0, hold = 0, pos = 0, stops = [], next = 0, returning = false;
+  var root = document.documentElement;
+
+  function headH() { return parseFloat(getComputedStyle(root).getPropertyValue('--cg-head')) || 66; }
+  function maxY() { return root.scrollHeight - window.innerHeight; }
+  function jump(y) { window.scrollTo({ top: y, behavior: 'instant' }); }
+  function computeStops() {
+    stops = [];
+    document.querySelectorAll('.cg-root > section').forEach(function (el) {
+      var y = Math.round(el.getBoundingClientRect().top + window.scrollY - headH());
+      if (y > 0) stops.push(y);
+    });
+    next = 0;
+    while (next < stops.length && stops[next] <= pos + 1) next++;
+  }
+  function setOn(v) {
+    on = v;
+    root.classList.toggle('cg-touring', v);
+    document.querySelectorAll('[data-tour-toggle]').forEach(function (b) { b.setAttribute('aria-pressed', v ? 'true' : 'false'); });
+    cancelAnimationFrame(raf);
+    if (!v) return;
+    pos = window.scrollY; hold = 1200; returning = false; last = 0;
+    computeStops();
+    raf = requestAnimationFrame(tick);
+  }
+  function tick(t) {
+    if (!on) return;
+    var dt = last ? Math.min(t - last, 100) : 0;
+    last = t;
+    raf = requestAnimationFrame(tick);
+    if (document.querySelector('.cg-modal')) return;           // video popup open: wait
+    if (hold > 0) { hold -= dt; return; }
+    if (returning) {                                           // just came back to the top
+      returning = false; pos = 0; jump(0); computeStops(); hold = HOLD; return;
+    }
+    var end = maxY();
+    if (pos >= end - 1) {                                      // reached the bottom
+      returning = true; hold = END_HOLD;
+      setTimeout(function () { if (on) window.scrollTo({ top: 0, behavior: 'smooth' }); }, END_HOLD - 2500);
+      return;
+    }
+    pos = Math.min(end, pos + SPEED * dt / 1000);
+    if (next < stops.length && pos >= stops[next]) {           // reached a section start
+      pos = stops[next]; next++; hold = HOLD;
+    }
+    jump(pos);
+  }
+  // Visitor takes over: stop on any manual scroll, tap or key press
+  function stop() { if (on) setOn(false); }
+  window.addEventListener('wheel', stop, { passive: true });
+  window.addEventListener('touchstart', function (e) {
+    if (!(e.target.closest && e.target.closest('[data-tour-toggle]'))) stop();
+  }, { passive: true });
+  window.addEventListener('keydown', function (e) {
+    if (e.target.closest && e.target.closest('[data-tour-toggle]') && (e.key === 'Enter' || e.key === ' ')) return;
+    stop();
+  });
+  window.addEventListener('mousedown', function (e) {
+    if (!(e.target.closest && e.target.closest('[data-tour-toggle]'))) stop();
+  });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-tour-toggle]');
+    if (b) setOn(!on);
+  });
+  window.addEventListener('resize', function () { if (on) computeStops(); });
+  if (/[?&]tour\b/.test(window.location.search)) {
+    window.addEventListener('load', function () { setTimeout(function () { setOn(true); }, 1500); });
+  }
 })();
 
 // Highlight the dock link (Background / Problem / Solution) for the group of sections in view.
